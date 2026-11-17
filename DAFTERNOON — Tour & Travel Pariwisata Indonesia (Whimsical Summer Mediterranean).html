@@ -1,0 +1,2980 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAFTERNOON — Tour & Travel Pariwisata Indonesia | Summer Mediterranean Escape</title>
+  <meta name="description" content="DAFTERNOON adalah platform Tour & Travel Pariwisata Indonesia dengan kurasi perjalanan eksklusif ke Labuan Bajo, Bali, Raja Ampat, Belitung, Bromo & Derawan bernuansa hangat dan estetik." />
+  <meta name="keywords" content="DAFTERNOON, Tour Travel Indonesia, Paket Wisata Labuan Bajo, Paket Wisata Bali, Raja Ampat, Belitung, Bromo, Open Trip, Private Trip Indonesia" />
+  <meta name="author" content="DAFTERNOON Tour & Travel" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / SEO -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DAFTERNOON — Tour & Travel Pariwisata Indonesia" />
+  <meta property="og:description" content="Jelajahi keindahan kepulauan Indonesia dengan pengalaman liburan musim panas yang hangat, terkurasi, dan penuh makna bersama DAFTERNOON." />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "DAFTERNOON Tour & Travel",
+    "description": "Platform Tour & Travel Pariwisata Indonesia dengan nuansa Whimsical Summer Mediterranean.",
+    "telephone": "+6289527157912",
+    "areaServed": "Indonesia",
+    "priceRange": "$$"
+  }
+  </script>
+
+  <!-- Google Fonts: Fraunces (Display Serif) & Plus Jakarta Sans (Clean Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Leaflet.js for Interactive Destination Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            terracotta: {
+              DEFAULT: '#E07A5F',
+              dark: '#C86247',
+              light: '#F4A690',
+              soft: '#FBECE7'
+            },
+            sand: {
+              DEFAULT: '#FDF8F2',
+              warm: '#F7EFE5',
+              card: '#FFFDF9',
+              border: '#EADBC8'
+            },
+            aegean: {
+              DEFAULT: '#1D4E5F',
+              dark: '#143845',
+              light: '#2D6E85',
+              soft: '#E6F0F3'
+            },
+            sage: {
+              DEFAULT: '#81B29A',
+              dark: '#63947C',
+              soft: '#EBF4EF'
+            },
+            sunburst: {
+              DEFAULT: '#F2CC8F',
+              dark: '#E2B468',
+              soft: '#FCF3E1'
+            }
+          },
+          fontFamily: {
+            serif: ['"Fraunces"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            'mediterranean': '0 14px 40px -10px rgba(29, 78, 95, 0.10)',
+            'terracotta': '0 12px 28px -6px rgba(224, 122, 95, 0.35)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FDF8F2;
+      color: #1D4E5F;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Mediterranean Linen & Sunlit Grain */
+    .mediterranean-pattern {
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(242, 204, 143, 0.22) 0%, transparent 42%),
+        radial-gradient(circle at 85% 20%, rgba(224, 122, 95, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(129, 178, 154, 0.14) 0%, transparent 48%);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F7EFE5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4BFA8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #E07A5F;
+    }
+
+    /* Smooth View Transitions */
+    .spa-view {
+      animation: fadeSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Equalizer Bars for Music Player */
+    @keyframes eqPulse {
+      0%, 100% { height: 4px; }
+      50% { height: 15px; }
+    }
+    .eq-bar {
+      width: 3px;
+      background-color: #E07A5F;
+      border-radius: 999px;
+      transition: height 0.2s ease;
+    }
+    .eq-playing .eq-bar:nth-child(1) { animation: eqPulse 0.9s infinite ease-in-out; }
+    .eq-playing .eq-bar:nth-child(2) { animation: eqPulse 0.65s infinite ease-in-out 0.15s; }
+    .eq-playing .eq-bar:nth-child(3) { animation: eqPulse 0.8s infinite ease-in-out 0.3s; }
+    .eq-playing .eq-bar:nth-child(4) { animation: eqPulse 0.7s infinite ease-in-out 0.1s; }
+
+    /* Leaflet Custom Pin & Popup */
+    .custom-daf-pin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 18px !important;
+      background: #FFFDF9 !important;
+      color: #1D4E5F !important;
+      box-shadow: 0 14px 34px rgba(29, 78, 95, 0.16) !important;
+      border: 1px solid #EADBC8;
+    }
+    .leaflet-popup-tip {
+      background: #FFFDF9 !important;
+    }
+
+    /* Arch Image Frame (Mediterranean Architecture) */
+    .arch-frame {
+      border-radius: 999px 999px 28px 28px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-terracotta/20 selection:text-aegean">
+
+  <!-- Hidden YouTube Player Container (Required for Official YouTube IFrame API) -->
+  <div id="yt-bg-player-wrapper" class="fixed -left-[9999px] -top-[9999px] w-1 h-1 overflow-hidden pointer-events-none opacity-0" aria-hidden="true">
+    <div id="yt-bg-player"></div>
+  </div>
+
+  <!-- Toast Notification Container (Replaces alert()) -->
+  <div id="toast-container" class="fixed top-20 right-4 z-[90] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-50 bg-sand/90 backdrop-blur-md border-b border-sand-border/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Brand Identity & Custom SVG Logo -->
+        <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group focus:outline-none">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-terracotta via-terracotta-dark to-aegean flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+            <!-- Custom DAFTERNOON Sun & Coastal Arch SVG -->
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="16" cy="13" r="6" fill="#F2CC8F"/>
+              <path d="M16 3V5.5M16 20.5V23M6 13H8.5M23.5 13H26M8.93 5.93L10.7 7.7M21.3 18.3L23.07 20.07M23.07 5.93L21.3 7.7M10.7 18.3L8.93 20.07" stroke="#FDF8F2" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M4 23.5C7.5 21 11.5 21 16 23.5C20.5 26 24.5 26 28 23.5" stroke="#FDF8F2" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M7 27.5C10.5 25.5 13.5 25.5 16 27.5C18.5 29.5 21.5 29.5 25 27.5" stroke="#81B29A" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="font-serif font-bold text-xl sm:text-2xl tracking-tight text-aegean block leading-none">DAFTERNOON</span>
+            <span class="text-[11px] uppercase tracking-[0.2em] text-terracotta font-semibold block mt-1">Indonesian Escape</span>
+          </div>
+        </button>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-1 bg-sand-warm/90 px-2 py-1.5 rounded-full border border-sand-border">
+          <button data-nav="home" onclick="navigateTo('home')" class="nav-pill px-4 py-2 rounded-full text-sm font-medium transition-all">Beranda</button>
+          <button data-nav="packages" onclick="navigateTo('packages')" class="nav-pill px-4 py-2 rounded-full text-sm font-medium transition-all">Paket Wisata</button>
+          <button data-nav="map" onclick="navigateTo('map')" class="nav-pill px-4 py-2 rounded-full text-sm font-medium transition-all">Peta Destinasi</button>
+          <button data-nav="offers" onclick="navigateTo('offers')" class="nav-pill px-4 py-2 rounded-full text-sm font-medium transition-all">Promo</button>
+          <button data-nav="journal" onclick="navigateTo('journal')" class="nav-pill px-4 py-2 rounded-full text-sm font-medium transition-all">Travel Journal</button>
+          <button data-nav="tools" onclick="navigateTo('tools')" class="nav-pill px-4 py-2 rounded-full text-sm font-medium transition-all">Checklist & Info</button>
+        </nav>
+
+        <!-- Right Actions: Dashboard & Booking CTA -->
+        <div class="hidden sm:flex items-center gap-2.5">
+          <button onclick="navigateTo('dashboard')" data-nav="dashboard" class="nav-dashboard-btn relative inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold border border-sand-border bg-sand-card text-aegean hover:border-aegean/40 transition-all">
+            <i data-lucide="briefcase" class="w-4 h-4 text-terracotta"></i>
+            <span>Dashboard</span>
+            <span id="dashboard-badge" class="hidden min-w-[20px] h-5 px-1.5 rounded-full bg-terracotta text-white text-xs flex items-center justify-center font-bold">0</span>
+          </button>
+
+          <button onclick="openBookingModal()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-terracotta hover:bg-terracotta-dark text-white shadow-terracotta transition-all transform hover:-translate-y-0.5">
+            <i data-lucide="compass" class="w-4 h-4"></i>
+            <span>Reservasi Trip</span>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="flex items-center gap-2 lg:hidden">
+          <button onclick="navigateTo('dashboard')" class="relative p-2.5 rounded-full bg-sand-warm border border-sand-border text-aegean" aria-label="Customer Dashboard">
+            <i data-lucide="briefcase" class="w-5 h-5 text-terracotta"></i>
+            <span id="dashboard-badge-mobile" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-terracotta text-white text-[11px] flex items-center justify-center font-bold">0</span>
+          </button>
+          <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="p-2.5 rounded-full bg-aegean text-white" aria-label="Buka Menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-sand-card border-b border-sand-border px-4 pt-3 pb-6 space-y-2 shadow-lg">
+      <button onclick="navigateTo('home'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="sun" class="w-4 h-4 text-terracotta"></i> Beranda
+      </button>
+      <button onclick="navigateTo('packages'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="map-pin" class="w-4 h-4 text-terracotta"></i> Paket Wisata & Itinerary
+      </button>
+      <button onclick="navigateTo('map'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="globe" class="w-4 h-4 text-terracotta"></i> Peta Interaktif Destinasi
+      </button>
+      <button onclick="navigateTo('offers'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="ticket" class="w-4 h-4 text-terracotta"></i> Special Offers & Promo
+      </button>
+      <button onclick="navigateTo('journal'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="book-open" class="w-4 h-4 text-terracotta"></i> Travel Journal / Blog
+      </button>
+      <button onclick="navigateTo('tools'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="check-square" class="w-4 h-4 text-terracotta"></i> Travel Checklist, Pembayaran & FAQ
+      </button>
+      <button onclick="navigateTo('dashboard'); toggleMobileMenu(false)" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-aegean hover:bg-sand-warm flex items-center gap-3">
+        <i data-lucide="user-check" class="w-4 h-4 text-terracotta"></i> Customer Dashboard
+      </button>
+      <div class="pt-2">
+        <button onclick="toggleMobileMenu(false); openBookingModal()" class="w-full py-3.5 rounded-2xl bg-terracotta text-white font-semibold text-sm shadow-terracotta flex items-center justify-center gap-2">
+          <i data-lucide="compass" class="w-4 h-4"></i> Ajukan Reservasi Perjalanan
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN SPA VIEWPORT ==================== -->
+  <main id="app-main" class="min-h-screen mediterranean-pattern">
+    <!-- Dynamic Views Rendered Here via JS to Keep Music Playing Seamlessly -->
+  </main>
+
+  <!-- ==================== FLOATING MEDITERRANEAN MUSIC PLAYER ==================== -->
+  <div id="music-widget" class="fixed bottom-4 left-4 z-40 max-w-[calc(100vw-2rem)]">
+    <div class="bg-sand-card/95 backdrop-blur-md border border-sand-border shadow-mediterranean rounded-full p-2 pr-4 flex items-center gap-3 transition-all">
+      <!-- Play / Pause Circle Button -->
+      <button id="music-toggle-btn" onclick="toggleBackgroundMusic()" class="w-11 h-11 rounded-full bg-gradient-to-br from-terracotta to-terracotta-dark text-white flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-transform flex-shrink-0" aria-label="Putar atau Jeda Musik Latar" title="Putar / Jeda Summer Ambience">
+        <i id="music-play-icon" data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
+      </button>
+
+      <!-- Track Info & Equalizer -->
+      <div class="min-w-0 flex flex-col">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-aegean truncate max-w-[130px] sm:max-w-[165px]">Summer Breeze Ambience</span>
+          <div id="music-equalizer" class="flex items-end gap-[2px] h-4" aria-hidden="true">
+            <span class="eq-bar h-1.5"></span>
+            <span class="eq-bar h-2.5"></span>
+            <span class="eq-bar h-1.5"></span>
+            <span class="eq-bar h-2"></span>
+          </div>
+        </div>
+        <span id="music-status-text" class="text-[11px] text-aegean/65 truncate">Klik Play untuk suasana liburan</span>
+      </div>
+
+      <!-- Volume Controls -->
+      <div class="hidden sm:flex items-center gap-2 pl-2 border-l border-sand-border">
+        <button id="music-mute-btn" onclick="toggleMuteMusic()" class="text-aegean/75 hover:text-terracotta transition-colors p-1" aria-label="Mute atau Unmute">
+          <i id="music-vol-icon" data-lucide="volume-2" class="w-4 h-4"></i>
+        </button>
+        <input id="music-volume-slider" type="range" min="0" max="100" value="45" oninput="changeMusicVolume(this.value)" class="w-16 accent-[#E07A5F] cursor-pointer h-1.5 bg-sand-warm rounded-lg" aria-label="Atur Volume Musik" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Quick WhatsApp Support Button -->
+  <a href="https://wa.me/6289527157912?text=Halo%20DAFTERNOON%2C%20saya%20ingin%20bertanya%20seputar%20paket%20wisata%20Indonesia." target="_blank" rel="noopener noreferrer" class="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2.5 px-4 py-3 rounded-full bg-aegean hover:bg-aegean-dark text-white shadow-mediterranean border border-white/15 transition-all hover:-translate-y-0.5" aria-label="Hubungi WhatsApp DAFTERNOON">
+    <span class="w-2.5 h-2.5 rounded-full bg-sage animate-pulse"></span>
+    <i data-lucide="message-circle" class="w-5 h-5 text-sunburst"></i>
+    <span class="hidden md:inline text-xs font-semibold tracking-wide">CS WhatsApp</span>
+  </a>
+
+  <!-- ==================== FOOTER & LEGAL ==================== -->
+  <footer class="bg-aegean text-sand border-t border-aegean-light/30 mt-20 pb-24 sm:pb-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <!-- Brand Column -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta flex items-center justify-center shadow">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="13" r="6" fill="#F2CC8F"/>
+                <path d="M4 23.5C7.5 21 11.5 21 16 23.5C20.5 26 24.5 26 28 23.5" stroke="#FDF8F2" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <span class="font-serif font-bold text-xl tracking-tight text-white block leading-none">DAFTERNOON</span>
+              <span class="text-[10px] uppercase tracking-[0.22em] text-sunburst font-semibold block mt-1">Tour & Travel Indonesia</span>
+            </div>
+          </div>
+          <p class="text-sm text-sand/80 leading-relaxed">
+            Mengkurasi perjalanan wisata nusantara dengan kehangatan sore musim panas Mediterania—estetik, terencana rapi, dan penuh cerita berkesan di setiap pulau Indonesia.
+          </p>
+          <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/10 text-xs text-sunburst">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Whimsical Summer Mediterranean Spirit</span>
+          </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div>
+          <h3 class="font-serif font-semibold text-lg text-white mb-4">Eksplorasi</h3>
+          <ul class="space-y-2.5 text-sm text-sand/80">
+            <li><button onclick="navigateTo('home')" class="hover:text-sunburst transition-colors">Beranda DAFTERNOON</button></li>
+            <li><button onclick="navigateTo('packages')" class="hover:text-sunburst transition-colors">Paket Wisata & Itinerary</button></li>
+            <li><button onclick="navigateTo('map')" class="hover:text-sunburst transition-colors">Peta Interaktif Destinasi</button></li>
+            <li><button onclick="navigateTo('offers')" class="hover:text-sunburst transition-colors">Penawaran & Voucher Promo</button></li>
+            <li><button onclick="navigateTo('journal')" class="hover:text-sunburst transition-colors">Travel Journal & Panduan</button></li>
+          </ul>
+        </div>
+
+        <!-- Customer Service & Tools -->
+        <div>
+          <h3 class="font-serif font-semibold text-lg text-white mb-4">Layanan Pelanggan</h3>
+          <ul class="space-y-2.5 text-sm text-sand/80">
+            <li><button onclick="navigateTo('tools')" class="hover:text-sunburst transition-colors">Travel Checklist Interaktif</button></li>
+            <li><button onclick="navigateTo('tools'); setTimeout(()=>scrollToSection('payment-info-section'),120)" class="hover:text-sunburst transition-colors">Informasi & Ketentuan Pembayaran</button></li>
+            <li><button onclick="navigateTo('tools'); setTimeout(()=>scrollToSection('faq-section'),120)" class="hover:text-sunburst transition-colors">Pertanyaan Umum (FAQ)</button></li>
+            <li><button onclick="navigateTo('dashboard')" class="hover:text-sunburst transition-colors">Customer Dashboard (Sesi Lokal)</button></li>
+            <li><button onclick="openBookingModal()" class="hover:text-sunburst transition-colors">Formulir Reservasi Trip</button></li>
+          </ul>
+        </div>
+
+        <!-- Official Contact -->
+        <div>
+          <h3 class="font-serif font-semibold text-lg text-white mb-4">Kontak Resmi</h3>
+          <div class="space-y-3 text-sm text-sand/85">
+            <a href="https://wa.me/6289527157912?text=Halo%20Admin%20DAFTERNOON%2C%20saya%20ingin%20konsultasi%20rencana%20perjalanan." target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 p-3 rounded-2xl bg-white/10 hover:bg-white/15 transition-colors">
+              <i data-lucide="phone-call" class="w-4 h-4 text-sunburst mt-0.5 flex-shrink-0"></i>
+              <div>
+                <span class="block text-xs text-sand/70">WhatsApp Resmi</span>
+                <span class="font-semibold text-white">0895-2715-7912</span>
+              </div>
+            </a>
+            <div class="flex items-start gap-3 px-1">
+              <i data-lucide="clock" class="w-4 h-4 text-sage mt-0.5 flex-shrink-0"></i>
+              <div>
+                <span class="block text-xs text-sand/70">Jam Layanan Konsultasi</span>
+                <span>Setiap Hari, 08.00 – 21.00 WIB</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 px-1">
+              <i data-lucide="shield-check" class="w-4 h-4 text-terracotta-light mt-0.5 flex-shrink-0"></i>
+              <p class="text-xs text-sand/70 leading-relaxed">
+                Seluruh konfirmasi ketersediaan jadwal dan detail pembayaran resmi hanya dilakukan melalui nomor WhatsApp resmi di atas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar: Legal & Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sand/70">
+        <p>© 2026 DAFTERNOON Tour & Travel Indonesia. Hak Cipta Dilindungi Undang-Undang.</p>
+        <div class="flex flex-wrap items-center gap-5">
+          <button onclick="openLegalModal('privacy')" class="hover:text-sunburst underline underline-offset-4 transition-colors">Privacy Policy</button>
+          <button onclick="openLegalModal('terms')" class="hover:text-sunburst underline underline-offset-4 transition-colors">Terms & Conditions</button>
+          <button onclick="navigateTo('tools'); setTimeout(()=>scrollToSection('contact-section'),120)" class="hover:text-sunburst underline underline-offset-4 transition-colors">Hubungi Kami</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS (ITINERARY, BOOKING, JOURNAL, LEGAL) ==================== -->
+
+  <!-- 1. Package Detail & Interactive Timeline Itinerary Modal -->
+  <div id="itinerary-modal" class="fixed inset-0 z-[70] hidden items-center justify-center p-3 sm:p-6 bg-aegean-dark/65 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-sand-card border border-sand-border rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl my-auto">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-sand-warm border-b border-sand-border flex items-center justify-between gap-4">
+        <div>
+          <span id="modal-pkg-region" class="text-xs font-bold uppercase tracking-wider text-terracotta">Destinasi</span>
+          <h3 id="modal-pkg-title" class="font-serif font-bold text-xl sm:text-2xl text-aegean">Detail Paket Wisata</h3>
+        </div>
+        <button onclick="closeModal('itinerary-modal')" class="p-2 rounded-full bg-sand-card border border-sand-border text-aegean hover:bg-terracotta hover:text-white transition-colors" aria-label="Tutup Modal">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Content -->
+      <div id="itinerary-modal-body" class="p-6 overflow-y-auto space-y-6">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Modal Footer CTA -->
+      <div class="px-6 py-4 bg-sand-warm border-t border-sand-border flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div>
+          <span class="text-xs text-aegean/70 block">Estimasi Investasi Perjalanan</span>
+          <span id="modal-pkg-price" class="font-serif font-bold text-xl text-aegean">Rp 0</span>
+          <span class="text-xs text-aegean/70">/ peserta</span>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <button onclick="closeModal('itinerary-modal')" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-full border border-sand-border text-sm font-semibold text-aegean hover:bg-sand">Tutup</button>
+          <button id="modal-pkg-book-btn" class="flex-1 sm:flex-initial px-6 py-2.5 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-sm font-semibold shadow-terracotta flex items-center justify-center gap-2">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i>
+            <span>Pilih Paket Ini</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Multi-Step Smart Booking & Reservation Request Modal -->
+  <div id="booking-modal" class="fixed inset-0 z-[75] hidden items-center justify-center p-3 sm:p-6 bg-aegean-dark/70 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-sand-card border border-sand-border rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-hidden flex flex-col shadow-2xl my-auto">
+      <div class="px-6 py-4 bg-gradient-to-r from-aegean to-aegean-light text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+            <i data-lucide="compass" class="w-5 h-5 text-sunburst"></i>
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-lg sm:text-xl">Formulir Permintaan Reservasi</h3>
+            <p class="text-xs text-sand/80">DAFTERNOON Tour & Travel Indonesia</p>
+          </div>
+        </div>
+        <button onclick="closeModal('booking-modal')" class="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Tutup Form Reservasi">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="px-6 py-3 bg-sand-warm border-b border-sand-border flex items-center justify-between text-xs font-semibold">
+        <div id="step-ind-1" class="flex items-center gap-2 text-terracotta">
+          <span class="w-6 h-6 rounded-full bg-terracotta text-white flex items-center justify-center">1</span>
+          <span>Detail Perjalanan & Peserta</span>
+        </div>
+        <div class="h-[1px] flex-1 bg-sand-border mx-3"></div>
+        <div id="step-ind-2" class="flex items-center gap-2 text-aegean/50">
+          <span class="w-6 h-6 rounded-full bg-sand-border text-aegean flex items-center justify-center">2</span>
+          <span>Tinjau & Konfirmasi WhatsApp</span>
+        </div>
+      </div>
+
+      <!-- Booking Form Body -->
+      <div id="booking-modal-body" class="p-6 overflow-y-auto space-y-5">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Travel Journal Article Reader Modal -->
+  <div id="article-modal" class="fixed inset-0 z-[70] hidden items-center justify-center p-3 sm:p-6 bg-aegean-dark/65 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-sand-card border border-sand-border rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl my-auto">
+      <div class="px-6 py-4 bg-sand-warm border-b border-sand-border flex items-center justify-between">
+        <span id="article-modal-cat" class="px-3 py-1 rounded-full bg-terracotta-soft text-terracotta text-xs font-bold">Kategori</span>
+        <button onclick="closeModal('article-modal')" class="p-2 rounded-full bg-sand-card border border-sand-border text-aegean hover:bg-terracotta hover:text-white transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="article-modal-body" class="p-6 sm:p-8 overflow-y-auto space-y-5">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Legal & Terms Modal (Privacy Policy & Terms & Conditions) -->
+  <div id="legal-modal" class="fixed inset-0 z-[80] hidden items-center justify-center p-3 sm:p-6 bg-aegean-dark/65 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-sand-card border border-sand-border rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl my-auto">
+      <div class="px-6 py-4 bg-sand-warm border-b border-sand-border flex items-center justify-between">
+        <h3 id="legal-modal-title" class="font-serif font-bold text-xl text-aegean">Informasi Legal</h3>
+        <button onclick="closeModal('legal-modal')" class="p-2 rounded-full bg-sand-card border border-sand-border text-aegean hover:bg-terracotta hover:text-white transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="legal-modal-body" class="p-6 overflow-y-auto space-y-4 text-sm text-aegean/85 leading-relaxed">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="px-6 py-3.5 bg-sand-warm border-t border-sand-border flex justify-end">
+        <button onclick="closeModal('legal-modal')" class="px-6 py-2 rounded-full bg-aegean text-white text-sm font-semibold">Saya Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
+  <script>
+    // =========================================================================
+    // 1. DATA REPOSITORY (CURATED INDONESIAN DESTINATIONS, ITINERARIES, ETC.)
+    // =========================================================================
+    const WHATSAPP_ADMIN = '6289527157912';
+    const WHATSAPP_DISPLAY = '0895-2715-7912';
+
+    const DESTINATIONS_DATA = [
+      {
+        id: 'labuan-bajo',
+        name: 'Labuan Bajo & Taman Nasional Komodo',
+        region: 'Nusa Tenggara Timur',
+        tagline: 'Berlayar di perairan biru pirus & menikmati senja keemasan Pulau Padar',
+        duration: '3 Hari 2 Malam',
+        tripType: 'Sailing & Island Hopping',
+        pricePerPax: 3850000,
+        dpPercent: 40,
+        coords: [-8.4967, 119.8877],
+        image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1200&q=80',
+        highlights: ['Bukit Pulau Padar', 'Pink Beach', 'Pulau Komodo', 'Manta Point & Taka Makassar'],
+        included: [
+          'Kapal Phinisi AC kabin selama 3H2M (berdasarkan pilihan kabin)',
+          'Makan lengkap 7x (Sarapan, Makan Siang, Makan Malam) + Camilan sore & Kopi/Teh',
+          'Antar-jemput Bandara Komodo (LBJ) – Pelabuhan PP',
+          'Peralatan snorkeling (masker & snorkel) & pelampung standar keselamatan',
+          'Tour leader & pemandu lokal berlisensi + dokumentasi foto/video'
+        ],
+        excluded: [
+          'Tiket pesawat dari dan ke Labuan Bajo',
+          'Tiket masuk kawasan Taman Nasional Komodo (WNI/WNA sesuai tarif resmi balai)',
+          'Pengeluaran pribadi, tip sukarela kru kapal, dan asuransi perjalanan tambahan'
+        ],
+        itinerary: [
+          {
+            day: 1,
+            title: 'Penjemputan, Pulau Kelor & Senja Pulau Kalong',
+            departure: '09.30 WITA',
+            arrival: '19.30 WITA',
+            estTravel: 'Total pelayaran ± 3,5 jam antar pulau',
+            steps: [
+              { time: '09.30 – 10.30', place: 'Bandara Komodo / Hotel Labuan Bajo', activity: 'Penjemputan peserta, briefing keselamatan pelayaran, dan boarding ke kapal Phinisi.', meal: 'Welcome Drink' },
+              { time: '11.30 – 13.30', place: 'Pulau Kelor', activity: 'Trekking ringan menuju puncak bukit panorama 360 derajat dan berenang santai di tepi pantai berpasir putih.', meal: 'Makan Siang di Kapal' },
+              { time: '14.30 – 16.30', place: 'Pulau Manjarite', activity: 'Snorkeling perairan dangkal dengan terumbu karang warna-warni dan kawanan ikan tropis.', meal: 'Camilan Sore & Teh Hangat' },
+              { time: '17.30 – 19.30', place: 'Pulau Kalong', activity: 'Menikmati siluet matahari terbenam Mediterania tropis sambil menyaksikan ribuan kalong terbang saat senja.', meal: 'Makan Malam & Istirahat di Kabin' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Ikon Pulau Padar, Pink Beach & Pulau Komodo',
+            departure: '05.00 WITA',
+            arrival: '19.00 WITA',
+            estTravel: 'Total pelayaran ± 4 jam antar titik',
+            steps: [
+              { time: '05.00 – 07.30', place: 'Pulau Padar', activity: 'Sunrise trekking menuju puncak ikon tiga teluk lengkung yang memukau dengan udara pagi yang segar.', meal: 'Sarapan Pagi di Kapal' },
+              { time: '09.00 – 11.30', place: 'Long Pink Beach', activity: 'Bersantai di hamparan pasir merah muda alami, berfoto estetik, dan berenang di perairan jernih.', meal: 'Jus Segar & Buah' },
+              { time: '13.00 – 15.00', place: 'Pulau Komodo (Loh Liang)', activity: 'Eksplorasi habitat asli Komodo didampingi Ranger resmi menyusuri jalur hutan kering.', meal: 'Makan Siang di Kapal' },
+              { time: '15.45 – 17.30', place: 'Taka Makassar & Manta Point', activity: 'Berjalan di atas pulau pasir timbul di tengah laut dan snorkeling mencari pari manta.', meal: 'Makan Malam & Waktu Santai Dek' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Pulau Kanawa & Kepulangan Labuan Bajo',
+            departure: '07.00 WITA',
+            arrival: '12.30 WITA',
+            estTravel: 'Pelayaran kembali ± 1,5 jam ke pelabuhan',
+            steps: [
+              { time: '07.00 – 08.00', place: 'Dek Kapal Phinisi', activity: 'Sarapan pagi santai menikmati angin laut pagi dan suasana tenang teluk Flores.', meal: 'Sarapan Pagi' },
+              { time: '08.30 – 10.30', place: 'Pulau Kanawa', activity: 'Snorkeling penutup di dermaga kayu ikonik Pulau Kanawa yang kaya bintang laut dan ikan karang.', meal: 'Camilan Pagi' },
+              { time: '11.30 – 12.30', place: 'Pelabuhan & Bandara Komodo', activity: 'Kembali ke Labuan Bajo, persiapan check-out kapal, dan pengantaran ke bandara/hotel.', meal: 'Selesai' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'bali-nusa-penida',
+        name: 'Uluwatu & Nusa Penida Coastal Retreat',
+        region: 'Bali',
+        tagline: 'Tebing kapur eksotis, pantai tersembunyi, dan kehangatan sunset tepi tebing Bali',
+        duration: '3 Hari 2 Malam',
+        tripType: 'Private & Curated Land-Sea',
+        pricePerPax: 2650000,
+        dpPercent: 30,
+        coords: [-8.7275, 115.5444],
+        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80',
+        highlights: ['Kelingking & Broken Beach', 'Diamond Beach', 'Tebing Uluwatu & Melasti', 'Seminyak Sunset Lounge'],
+        included: [
+          'Akomodasi hotel butik estetik 2 malam (1 kamar untuk 2 orang)',
+          'Transportasi mobil privat ber-AC + BBM + Driver ramah berpengalaman',
+          'Tiket Fast Boat Sanur – Nusa Penida PP',
+          'Makan 5x (2x Sarapan Hotel, 2x Makan Siang lokal pilihan, 1x Sunset Dinner)',
+          'Tiket masuk seluruh objek wisata sesuai jadwal perjalanan'
+        ],
+        excluded: [
+          'Tiket pesawat PP menuju Bandara Internasional I Gusti Ngurah Rai (DPS)',
+          'Pengeluaran pribadi, aktivitas watersport opsional, dan makan di luar jadwal'
+        ],
+        itinerary: [
+          {
+            day: 1,
+            title: 'Pesona Tebing Selatan: Melasti, Uluwatu & Sunset Dinner',
+            departure: '10.00 WITA',
+            arrival: '20.30 WITA',
+            estTravel: 'Perjalanan darat ± 2,5 jam',
+            steps: [
+              { time: '10.00 – 11.30', place: 'Bandara Ngurah Rai / Area Kuta', activity: 'Penjemputan oleh tim DAFTERNOON dan perjalanan menuju pesisir selatan Bali.', meal: 'Air Mineral & Refreshment' },
+              { time: '12.30 – 14.30', place: 'Pantai Melasti Ungasan', activity: 'Menikmati jalan tebing kembar yang megah dan hamparan pantai berair biru kehijauan.', meal: 'Makan Siang di Resto Tepi Pantai' },
+              { time: '16.00 – 18.30', place: 'Pura Luhur Uluwatu', activity: 'Menyusuri jalur tebing samudra Hindia dan menyaksikan pertunjukan Tari Kecak saat matahari terbenam.', meal: 'Sunset View' },
+              { time: '19.00 – 20.30', place: 'Pantai Jimbaran', activity: 'Makan malam hidangan laut bakar segar di atas pasir pantai di bawah langit malam.', meal: 'Makan Malam Seafood Jimbaran' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Eksplorasi Penuh Nusa Penida Barat & Timur',
+            departure: '06.45 WITA',
+            arrival: '18.30 WITA',
+            estTravel: 'Fast boat 45 menit + keliling pulau ± 3 jam',
+            steps: [
+              { time: '06.45 – 08.30', place: 'Pelabuhan Sanur ke Nusa Penida', activity: 'Penyeberangan fast boat pagi menuju Pelabuhan Banjar Nyuh Nusa Penida.', meal: 'Sarapan Box / Hotel' },
+              { time: '09.15 – 12.00', place: 'Diamond Beach & Atuh Beach', activity: 'Menuruni tangga tebing batu kapur putih dengan panorama gugusan pulau kecil bak Mediterania.', meal: 'Makan Siang Lokal' },
+              { time: '13.30 – 16.00', place: 'Kelingking Cliff, Broken Beach & Angel’s Billabong', activity: 'Mengabadikan lanskap tebing ikonik dan kolam alami jernih di sisi barat pulau.', meal: 'Camilan Sore' },
+              { time: '16.30 – 18.30', place: 'Kembali ke Bali & Check-in Istirahat', activity: 'Penyeberangan sore kembali ke Sanur dan pengantaran kembali ke hotel.', meal: 'Waktu Bebas Makan Malam' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Morning Coffee Seminyak & Kepulangan',
+            departure: '08.30 WITA',
+            arrival: '13.00 WITA',
+            estTravel: 'Perjalanan darat ± 1,5 jam',
+            steps: [
+              { time: '08.30 – 10.30', place: 'Area Seminyak / Canggu', activity: 'Sarapan santai dan jalan pagi menyusuri butik lokal serta kafe bernuansa tropis hangat.', meal: 'Sarapan Hotel' },
+              { time: '10.45 – 12.00', place: 'Pusat Oleh-Oleh Khas Bali', activity: 'Berbelanja kerajinan tangan, kopi Bali, dan kudapan khas nusantara.', meal: '-' },
+              { time: '12.15 – 13.00', place: 'Bandara I Gusti Ngurah Rai', activity: 'Pengantaran menuju terminal keberangkatan bandara sesuai jadwal penerbangan.', meal: 'Selesai' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'raja-ampat',
+        name: 'Raja Ampat Wayag & Piaynemo Expedition',
+        region: 'Papua Barat Daya',
+        tagline: 'Gugusan karst zamrud di jantung segitiga terumbu karang dunia',
+        duration: '4 Hari 3 Malam',
+        tripType: 'Island Expedition',
+        pricePerPax: 6450000,
+        dpPercent: 40,
+        coords: [-0.5067, 130.5178],
+        image: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=1200&q=80',
+        highlights: ['Puncak Piaynemo & Telaga Bintang', 'Gugusan Karst Wayag', 'Desa Wisata Arborek', 'Pasir Timbul Mansuar'],
+        included: [
+          'Akomodasi resort/homestay tepi laut Waisai 3 malam (AC & kamar mandi dalam)',
+          'Private Speedboat jelajah pulau selama program + BBM & kru lokal berpengalaman',
+          'Makan lengkap 10x selama perjalanan + air mineral & buah segar',
+          'Tiket kapal feri VIP Sorong – Waisai PP + antar-jemput bandara Sorong',
+          'Pemandu lokal Raja Ampat & dokumentasi perjalanan'
+        ],
+        excluded: [
+          'Tiket pesawat PP menuju Bandara Domine Eduard Osok Sorong (SOQ)',
+          'Tarif Layanan Pemeliharaan Lingkungan (TLPL / PIN Raja Ampat)',
+          'Sewa alat selam/snorkeling pribadi & pengeluaran pribadi'
+        ],
+        itinerary: [
+          {
+            day: 1,
+            title: 'Ketibaan Sorong – Penyeberangan Waisai & Pantai Friwen',
+            departure: '08.30 WIT',
+            arrival: '18.30 WIT',
+            estTravel: 'Feri 2 jam + speedboat 45 menit',
+            steps: [
+              { time: '08.30 – 11.30', place: 'Bandara Sorong & Pelabuhan Rakyat', activity: 'Penjemputan peserta, makan pagi/siang ringan, lalu berlayar menuju Waisai ibu kota Raja Ampat.', meal: 'Makan Siang' },
+              { time: '14.00 – 17.00', place: 'Pantai Friwen & Friwen Wall', activity: 'Berenang di perairan sebening kristal dan bersantai di ayunan tepi pantai berpasir putih.', meal: 'Kopi/Teh & Pisang Goreng Khas' },
+              { time: '17.30 – 18.30', place: 'Penginapan Waisai', activity: 'Check-in akomodasi tepi pantai, bersih diri, dan makan malam bersama.', meal: 'Makan Malam' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Eksplorasi Seharian Gugusan Karst Wayag',
+            departure: '06.30 WIT',
+            arrival: '18.00 WIT',
+            estTravel: 'Speedboat ± 2,5 jam sekali jalan',
+            steps: [
+              { time: '06.30 – 09.30', place: 'Perjalanan Laut Menuju Wayag', activity: 'Sarapan pagi sebelum bertolak menyusuri perairan biru samudra Pasifik menuju utara.', meal: 'Sarapan Pagi' },
+              { time: '09.45 – 12.30', place: 'Puncak Wayag 1 & 2', activity: 'Mendaki bukit karst untuk menyaksikan formasi pulau-pulau hijau ikonik di atas laguna biru.', meal: 'Makan Siang Piknik Pantai' },
+              { time: '13.30 – 15.30', place: 'Pos Konservasi Hiu & Laguna Wayag', activity: 'Berinteraksi aman dengan anak hiu sirip hitam di tepi dermaga jernih dan berfoto.', meal: 'Buah Segar' },
+              { time: '15.30 – 18.00', place: 'Kembali ke Waisai', activity: 'Pelayaran kembali menuju penginapan untuk beristirahat dan makan malam.', meal: 'Makan Malam' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Piaynemo, Telaga Bintang, Arborek & Yenbuba',
+            departure: '07.30 WIT',
+            arrival: '17.30 WIT',
+            estTravel: 'Speedboat antar pulau ± 3 jam',
+            steps: [
+              { time: '07.30 – 10.30', place: 'Bukit Piaynemo & Telaga Bintang', activity: 'Menapaki tangga kayu menuju dek pandang Piaynemo dan melihat laguna berbentuk bintang alami.', meal: 'Sarapan Pagi' },
+              { time: '11.30 – 13.30', place: 'Desa Wisata Arborek', activity: 'Makan siang di desa wisata ramah lingkungan, melihat kerajinan anyaman daun pandan, dan snorkeling di dermaga.', meal: 'Makan Siang di Desa' },
+              { time: '14.30 – 16.30', place: 'Sauwandarek & Pasir Timbul Mansuar', activity: 'Menikmati keindahan taman karang Yenbuba/Sauwandarek dan berjalan di hamparan pasir timbul tengah laut.', meal: 'Makan Malam' }
+            ]
+          },
+          {
+            day: 4,
+            title: 'Pagi Tenang Waisai & Kepulangan ke Sorong',
+            departure: '08.00 WIT',
+            arrival: '13.30 WIT',
+            estTravel: 'Feri 2 jam + transfer bandara 20 menit',
+            steps: [
+              { time: '08.00 – 09.00', place: 'Penginapan Waisai', activity: 'Sarapan pagi, check-out, dan persiapan menuju Pelabuhan Waisai.', meal: 'Sarapan Pagi' },
+              { time: '09.30 – 11.30', place: 'Pelayaran Waisai – Sorong', activity: 'Menyeberang kembali ke Kota Sorong menggunakan kapal cepat.', meal: '-' },
+              { time: '12.00 – 13.30', place: 'Pusat Oleh-Oleh & Bandara Sorong', activity: 'Singgah membeli abon gulung khas Papua dan pengantaran ke Bandara SOQ.', meal: 'Selesai' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'belitung',
+        name: 'Belitung Granit & Hopping Island Escape',
+        region: 'Kepulauan Bangka Belitung',
+        tagline: 'Batu granit raksasa artistik, mercusuar bersejarah, dan kopi hangat Tanjung Pandan',
+        duration: '3 Hari 2 Malam',
+        tripType: 'Family & Aesthetic Leisure',
+        pricePerPax: 2150000,
+        dpPercent: 30,
+        coords: [-2.7411, 107.6406],
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        highlights: ['Pulau Lengkuas & Mercusuar 1882', 'Pantai Tanjung Tinggi', 'Danau Kaolin Biru', 'Kuliner Mie Belitung & Kopi Kong Djie'],
+        included: [
+          'Hotel bintang 3/4 area Tanjung Pandan 2 malam (termasuk sarapan)',
+          'Transportasi mobil AC nyaman + BBM + Driver/Guide lokal',
+          'Sewa perahu tradisional jelajah pulau Tanjung Kelayang + alat snorkeling & pelampung',
+          'Makan 5x termasuk kuliner khas Mie Belitung & hidangan laut segar',
+          'Tiket masuk seluruh destinasi wisata & air mineral harian'
+        ],
+        excluded: [
+          'Tiket pesawat PP menuju Bandara H.A.S. Hanandjoeddin (TJQ)',
+          'Pengeluaran pribadi & belanja oleh-oleh'
+        ],
+        itinerary: [
+          {
+            day: 1,
+            title: 'Belitung Timur: Laskar Pelangi, Vihara & Kota Manggar',
+            departure: '09.00 WIB',
+            arrival: '18.30 WIB',
+            estTravel: 'Perjalanan darat ± 3 jam',
+            steps: [
+              { time: '09.00 – 10.30', place: 'Bandara Tanjung Pandan & Mie Belitung', activity: 'Penjemputan pagi dan mencicipi kuliner legendaris Mie Belitung dengan kuah udang gurih.', meal: 'Sarapan/Brunch Mie Belitung' },
+              { time: '11.30 – 14.30', place: 'Replika SD Muhammadiyah Gantong & Museum Kata', activity: 'Menyelami kisah inspiratif sastra dan warna-warni bangunan ikonik Belitung Timur.', meal: 'Makan Siang di Kota Manggar' },
+              { time: '15.30 – 17.30', place: 'Pantai Serdang & Vihara Dewi Kwan Im', activity: 'Menikmati deretan perahu katir warna-warni di pesisir timur serta panorama bukit pesisir.', meal: 'Kopi Hangat 1001 Warung Kopi' },
+              { time: '18.00 – 19.30', place: 'Tanjung Pandan', activity: 'Check-in hotel, istirahat sejenak, dan makan malam hidangan laut.', meal: 'Makan Malam' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Island Hopping Tanjung Kelayang & Pulau Lengkuas',
+            departure: '08.00 WIB',
+            arrival: '17.00 WIB',
+            estTravel: 'Perahu pulau ± 2 jam total pelayaran',
+            steps: [
+              { time: '08.00 – 09.30', place: 'Pantai Tanjung Kelayang & Batu Garuda', activity: 'Memulai pelayaran melewati formasi batu granit raksasa menyerupai kepala burung garuda.', meal: 'Sarapan Hotel' },
+              { time: '10.00 – 13.00', place: 'Pulau Lengkuas', activity: 'Mengagumi mercusuar peninggalan tahun 1882, berfoto di sela batu granit megah, dan snorkeling.', meal: 'Makan Siang di Pulau Kepayang' },
+              { time: '14.00 – 16.30', place: 'Pulau Pasir & Pantai Tanjung Tinggi', activity: 'Berjalan di pulau pasir putih dan menikmati cahaya sore keemasan di Pantai Tanjung Tinggi.', meal: 'Kelapa Muda Segar' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Rumah Adat Belitung, Danau Kaolin & Kepulangan',
+            departure: '08.30 WIB',
+            arrival: '12.30 WIB',
+            estTravel: 'Perjalanan darat ± 1 jam',
+            steps: [
+              { time: '08.30 – 10.30', place: 'Rumah Adat Belitung & Danau Kaolin', activity: 'Mengenal arsitektur rumah panggung Melayu Belitung dan berfoto di Danau Kaolin berair biru cerah.', meal: 'Sarapan Hotel' },
+              { time: '11.00 – 12.30', place: 'Pusat Oleh-Oleh & Bandara TJQ', activity: 'Belanja kerupuk siput gonggong dan lada putih Bangka Belitung sebelum pengantaran ke bandara.', meal: 'Selesai' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'bromo-ijen',
+        name: 'Bromo Golden Sunrise & Kawah Ijen Crater',
+        region: 'Jawa Timur',
+        tagline: 'Lautan kabut pegunungan Tengger hingga danau kawah pirus terbesar di dunia',
+        duration: '3 Hari 2 Malam',
+        tripType: 'Highland Adventure',
+        pricePerPax: 2490000,
+        dpPercent: 30,
+        coords: [-7.9425, 112.953],
+        image: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1200&q=80',
+        highlights: ['Sunrise Penanjakan / King Kong Hill', 'Kawah Bromo & Pasir Berbisik', 'Fenomena Blue Fire & Danau Kawah Ijen', 'Hutan Djawatan Benculuk'],
+        included: [
+          'Transportasi privat AC dari Malang/Surabaya hingga drop Banyuwangi/Surabaya',
+          'Jeep 4WD khusus Bromo + Pemandu lokal Ijen + Masker respirator standar pendakian',
+          'Akomodasi penginapan nyaman 2 malam (1 malam area Bromo, 1 malam area Banyuwangi)',
+          'Sarapan 2x + tiket masuk Taman Nasional Bromo Tengger Semeru & TWA Kawah Ijen'
+        ],
+        excluded: [
+          'Tiket kereta/pesawat menuju titik temu awal & kepulangan',
+          'Makan siang, makan malam, sewa jaket tebal/kuda di Bromo'
+        ],
+        itinerary: [
+          {
+            day: 1,
+            title: 'Penjemputan Malang/Surabaya & Menuju Kawasan Bromo',
+            departure: '11.00 WIB',
+            arrival: '17.30 WIB',
+            estTravel: 'Perjalanan darat ± 3,5 jam',
+            steps: [
+              { time: '11.00 – 14.30', place: 'Stasiun / Bandara Malang atau Surabaya', activity: 'Penjemputan peserta dan perjalanan menanjak menuju kawasan pegunungan Tengger yang sejuk.', meal: 'Stop Makan Siang (Personal)' },
+              { time: '15.30 – 17.30', place: 'Penginapan Area Cemoro Lawang / Sukapura', activity: 'Check-in penginapan, adaptasi suhu pegunungan, dan istirahat lebih awal untuk persiapan sunrise.', meal: 'Teh/Kopi Hangat Pegunungan' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Bromo Golden Sunrise, Lautan Pasir & Perjalanan Banyuwangi',
+            departure: '02.30 WIB',
+            arrival: '18.00 WIB',
+            estTravel: 'Jeep Bromo 4 jam + transfer Banyuwangi ± 5 jam',
+            steps: [
+              { time: '02.30 – 06.00', place: 'King Kong Hill / Bukit Cinta Bromo', activity: 'Perjalanan Jeep 4WD menembus kabut pagi menyambut matahari terbit dengan latar Gunung Semeru.', meal: 'Kopi Pagi di Warung Bukit' },
+              { time: '06.30 – 09.00', place: 'Kawah Bromo, Pura Luhur Poten & Bukit Teletubbies', activity: 'Menyusuri kaldera pasir berbisik, mendaki anak tangga kawah, dan berfoto di sabana hijau.', meal: 'Sarapan di Penginapan' },
+              { time: '11.00 – 18.00', place: 'Perjalanan Menuju Banyuwangi', activity: 'Check-out dan perjalanan lintas pesisir utara menuju penginapan di kaki Gunung Ijen.', meal: 'Istirahat & Makan Siang di Rute' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Kawah Ijen Blue Fire, Hutan Djawatan & Kepulangan',
+            departure: '01.00 WIB',
+            arrival: '13.30 WIB',
+            estTravel: 'Trekking PP ± 3,5 jam + transfer ± 2 jam',
+            steps: [
+              { time: '01.00 – 05.30', place: 'Paltuding – Puncak Kawah Ijen', activity: 'Pendakian malam dengan pemandu lokal menyaksikan fenomena api biru alami dan panorama danau kawah pirus saat fajar.', meal: 'Sarapan setelah Turun' },
+              { time: '09.30 – 11.00', place: 'De Djawatan Benculuk', activity: 'Menikmati keteduhan pepohonan trembesi raksasa berlumut yang eksotis.', meal: '-' },
+              { time: '11.30 – 13.30', place: 'Stasiun / Bandara Banyuwangi (atau Drop Surabaya)', activity: 'Pengantaran peserta menuju titik kepulangan sesuai jadwal.', meal: 'Selesai' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'derawan',
+        name: 'Kepulauan Derawan, Maratua & Kakaban',
+        region: 'Kalimantan Timur',
+        tagline: 'Vila di atas air pirus jernih, ubur-ubur tanpa sengat, dan penyu hijau',
+        duration: '4 Hari 3 Malam',
+        tripType: 'Tropical Overwater Escape',
+        pricePerPax: 3690000,
+        dpPercent: 40,
+        coords: [2.2833, 118.2417],
+        image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
+        highlights: ['Danau Ubur-Ubur Kakaban', 'Laguna Maratua & Goa Halo Tabung', 'Pulau Sangalaki (Manta & Tukik)', 'Gusung Sanggalau'],
+        included: [
+          'Penginapan water cottage / tepi pantai Pulau Derawan 3 malam (AC)',
+          'Speedboat jelajah 4 pulau (Maratua, Kakaban, Sangalaki, Gusung) + BBM',
+          'Transfer darat Bandara Berau (BEJ) – Pelabuhan Tanjung Batu PP + speedboat ke Derawan',
+          'Makan lengkap 9x selama di pulau + pemandu lokal & dokumentasi'
+        ],
+        excluded: [
+          'Tiket pesawat PP menuju Bandara Kalimarau Berau (BEJ)',
+          'Sewa perlengkapan snorkeling & pengeluaran pribadi'
+        ],
+        itinerary: [
+          {
+            day: 1,
+            title: 'Ketibaan Berau – Penyebrangan Derawan & Sunset Dermaga',
+            departure: '11.00 WITA',
+            arrival: '18.30 WITA',
+            estTravel: 'Darat 2 jam + speedboat 30 menit',
+            steps: [
+              { time: '11.00 – 14.30', place: 'Bandara Kalimarau Berau – Tanjung Batu', activity: 'Penjemputan peserta dan perjalanan darat menuju dermaga penyebrangan Tanjung Batu.', meal: 'Makan Siang' },
+              { time: '15.00 – 18.30', place: 'Pulau Derawan', activity: 'Check-in cottage tepi laut, berjalan santai menyusuri kampung pulau, dan menikmati senja di dermaga.', meal: 'Makan Malam Seafood Pulau' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Jelajah Pulau Maratua, Kakaban & Sangalaki',
+            departure: '08.00 WITA',
+            arrival: '17.00 WITA',
+            estTravel: 'Speedboat keliling atol ± 3 jam',
+            steps: [
+              { time: '08.00 – 10.30', place: 'Pulau Maratua & Goa Halo Tabung', activity: 'Berfoto di dermaga resor atas air Maratua yang jernih dan berenang di laguna biru tua.', meal: 'Sarapan Pagi' },
+              { time: '11.00 – 13.30', place: 'Pulau Kakaban', activity: 'Berenang bersama ribuan ubur-ubur unik tanpa sengat di danau air payau purba.', meal: 'Makan Siang Box di Pulau' },
+              { time: '14.00 – 16.30', place: 'Pulau Sangalaki', activity: 'Mengunjungi penangkaran tukik penyu hijau dan snorkeling mencari pari manta.', meal: 'Makan Malam' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Gusung Sanggalau, Snorkeling Penyu & Santai Pulau',
+            departure: '08.30 WITA',
+            arrival: '17.00 WITA',
+            estTravel: 'Speedboat ringan ± 45 menit',
+            steps: [
+              { time: '08.30 – 11.30', place: 'Gusung Sanggalau', activity: 'Menikmati hamparan pasir putih panjang di tengah laut biru saat air surut.', meal: 'Sarapan Pagi' },
+              { time: '13.30 – 16.30', place: 'House Reef Derawan', activity: 'Snorkeling santai tepat di sekitar dermaga Derawan di mana penyu hijau sering berenang bebas.', meal: 'Makan Siang & Makan Malam' }
+            ]
+          },
+          {
+            day: 4,
+            title: 'Pagi di Derawan & Kepulangan ke Bandara Berau',
+            departure: '07.30 WITA',
+            arrival: '11.30 WITA',
+            estTravel: 'Speedboat 30 menit + darat 2 jam',
+            steps: [
+              { time: '07.30 – 08.30', place: 'Pulau Derawan', activity: 'Sarapan pagi terakhir menghadap laut dan persiapan check-out.', meal: 'Sarapan Pagi' },
+              { time: '08.30 – 11.30', place: 'Tanjung Batu – Bandara Kalimarau Berau', activity: 'Penyebrangan kembali ke daratan utama dan pengantaran menuju bandara.', meal: 'Selesai' }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const PROMOS_DATA = [
+      {
+        code: 'SUMMERID',
+        title: 'Potongan Langsung Liburan Musim Panas',
+        discountType: 'fixed',
+        discountValue: 350000,
+        badge: 'Potongan Rp 350.000',
+        validUntil: '31 Desember 2026',
+        minPax: 2,
+        description: 'Berlaku untuk seluruh paket wisata nusantara dengan minimal pemesanan 2 peserta dewasa dalam satu kode reservasi.',
+        terms: [
+          'Masukkan kode SUMMERID pada formulir reservasi untuk potongan otomatis Rp 350.000 dari total tagihan.',
+          'Berlaku untuk minimal 2 peserta dewasa pada semua pilihan destinasi DAFTERNOON.',
+          'Tidak dapat digabungkan dengan kode voucher promo lainnya dalam satu transaksi.'
+        ]
+      },
+      {
+        code: 'MEDITERRANEAN10',
+        title: 'Early Bird & Coastal Escape 10%',
+        discountType: 'percent',
+        discountValue: 10,
+        badge: 'Diskon 10%',
+        validUntil: '30 November 2026',
+        minPax: 1,
+        description: 'Nikmati potongan 10% untuk pemesanan jadwal keberangkatan minimal 30 hari sebelum tanggal perjalanan.',
+        terms: [
+          'Diskon 10% dihitung otomatis dari total biaya dasar paket wisata.',
+          'Berlaku untuk reservasi individu maupun grup kecil.',
+          'Wajib melakukan konfirmasi DP sesuai ketentuan yang diinformasikan admin resmi.'
+        ]
+      },
+      {
+        code: 'SAHABAT4',
+        title: 'Paket Rombongan Kecil & Sahabat',
+        discountType: 'fixed',
+        discountValue: 650000,
+        badge: 'Hemat Rp 650.000',
+        validUntil: '31 Desember 2026',
+        minPax: 4,
+        description: 'Bepergian lebih seru bersama keluarga atau sahabat minimal 4 peserta dalam satu keberangkatan.',
+        terms: [
+          'Minimal jumlah peserta dewasa adalah 4 orang dalam satu formulir reservasi.',
+          'Berlaku untuk Private Trip maupun jadwal keberangkatan reguler.',
+          'Kuota promo disesuaikan dengan ketersediaan kapal/akomodasi pada tanggal pilihan.'
+        ]
+      }
+    ];
+
+    const JOURNAL_DATA = [
+      {
+        id: 'art-1',
+        title: 'Panduan Lengkap Berlayar di Labuan Bajo: Waktu Terbaik & Etika Wisata Bahari',
+        category: 'Panduan Liburan',
+        date: '14 November 2026',
+        readTime: '5 Menit Baca',
+        image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1000&q=80',
+        excerpt: 'Mengenal musim terbaik menyusuri Taman Nasional Komodo, perlengkapan wajib di atas kapal Phinisi, hingga cara menjaga kelestarian terumbu karang.',
+        content: [
+          'Berlayar menyusuri gugusan kepulauan Taman Nasional Komodo di Labuan Bajo menawarkan perpaduan lanskap sabana keemasan dan perairan biru pirus yang menyerupai pesisir Mediterania.',
+          'Waktu terbaik berkunjung umumnya berada pada rentang bulan April hingga November saat cuaca cerah dan angin laut cenderung bersahabat. Pada bulan April–Juni perbukitan Pulau Padar tampak hijau segar, sementara Agustus–Oktober menghadirkan siluet bukit keemasan yang dramatis.',
+          'Selama berada di kawasan konservasi, wisatawan dianjurkan selalu mengikuti arahan Ranger saat bertemu Komodo, tidak menyentuh atau menginjak terumbu karang saat snorkeling, serta menggunakan tabir surya yang ramah ekosistem laut (reef-safe sunscreen).'
+        ]
+      },
+      {
+        id: 'art-2',
+        title: 'Menjelajahi Sisi Tenang Bali Selatan: Dari Tebing Melasti hingga Senja Uluwatu',
+        category: 'Rekomendasi Destinasi Wisata',
+        date: '06 November 2026',
+        readTime: '4 Menit Baca',
+        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=80',
+        excerpt: 'Rute perjalanan santai menyusuri tebing kapur putih di semenanjung Bukit Bali tanpa terburu-buru.',
+        content: [
+          'Semenanjung Bukit di bagian selatan Bali menyimpan deretan tebing kapur menjulang yang berhadapan langsung dengan Samudra Hindia. Suasananya hangat, cerah, dan sangat cocok bagi pencinta estetika pesisir.',
+          'Mulailah pagi Anda dengan kopi hangat di kawasan Seminyak atau Canggu, lalu bergerak menuju Pantai Melasti menjelang tengah hari saat warna laut pirus terlihat paling kontras dengan tebing kapur putih.',
+          'Menjelang pukul 16.30 WITA, arahkan perjalanan menuju Pura Luhur Uluwatu untuk menikmati semilir angin sore di atas tebing sebelum menutup hari dengan makan malam santai di pesisir Jimbaran.'
+        ]
+      },
+      {
+        id: 'art-3',
+        title: '10 Tips Packing Ringkas & Estetik untuk Island Hopping di Kepulauan Indonesia',
+        category: 'Tips Perjalanan',
+        date: '28 Oktober 2026',
+        readTime: '4 Menit Baca',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80',
+        excerpt: 'Cara menyusun koper dan dry bag agar tetap nyaman berpindah dari pesawat menuju speedboat maupun kapal kayu.',
+        content: [
+          'Perjalanan kepulauan di Indonesia sering melibatkan perpindahan moda transportasi dari pesawat, mobil darat, hingga speedboat atau kapal Phinisi. Menggunakan tas berbahan lentur (duffel bag) jauh lebih praktis dibanding koper kaku berukuran besar.',
+          'Siapkan satu tas anti-air (dry bag) ukuran 10–15 liter khusus untuk menyimpan ponsel, kamera, dompet, handuk microfiber cepat kering, serta pakaian ganti saat turun ke pantai atau pulau kecil.',
+          'Pilih pakaian berbahan katun atau linen bernuansa cerah dan hangat agar tetap sejuk di bawah matahari tropis sekaligus selaras dengan latar belakang laut biru.'
+        ]
+      },
+      {
+        id: 'art-4',
+        title: 'Jejak Kuliner Pesisir Nusantara: Dari Mie Belitung hingga Kopi Kong Djie',
+        category: 'Informasi Budaya & Kuliner Daerah',
+        date: '19 Oktober 2026',
+        readTime: '5 Menit Baca',
+        image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=80',
+        excerpt: 'Menikmati kehangatan tradisi warung kopi dan cita rasa hidangan laut khas Kepulauan Bangka Belitung.',
+        content: [
+          'Mengunjungi Belitung tidak lengkap tanpa menyelami budaya ngopi masyarakat lokal di Kota Tanjung Pandan maupun Manggar yang dikenal sebagai Kota 1001 Warung Kopi.',
+          'Warung kopi tradisional seperti Kopi Kong Djie yang berdiri sejak 1943 mempertahankan cara seduh klasik menggunakan ceret tembaga panjang di atas tungku arang, menghasilkan aroma kopi robusta yang khas dan lembut.',
+          'Padukan segelas kopi susu hangat dengan seporsi Mie Belitung—mie kuning yang disiram kuah kaldu udang kental nan gurih, lengkap dengan potongan tahu, kentang rebus, emping melinjo, dan perasan jeruk kunci.'
+        ]
+      },
+      {
+        id: 'art-5',
+        title: 'Catatan Perjalanan Fajar di Kawah Ijen: Menyaksikan Danau Kawah Pirus',
+        category: 'Pengalaman Menjelajahi Tempat Wisata',
+        date: '09 Oktober 2026',
+        readTime: '6 Menit Baca',
+        image: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1000&q=80',
+        excerpt: 'Kisah langkah demi langkah mendaki jalur Paltuding di bawah taburan bintang hingga matahari menyinari dinding kaldera.',
+        content: [
+          'Perjalanan dimulai sekitar pukul 01.30 dini hari dari Pos Paltuding. Di bawah langit bertabur bintang dan udara pegunungan berkisar 10 derajat Celsius, senter kepala menjadi penunjuk jalan menyusuri jalur menanjak sejauh 3 kilometer.',
+          'Ketika langit perlahan berubah dari nila menjadi keemasan di ufuk timur, permukaan danau asam Kawah Ijen memantulkan warna biru kehijauan yang menakjubkan di antara dinding tebing belerang.',
+          'Penggunaan masker pelindung standar serta berjalan dengan ritme napas yang teratur membuat pengalaman mendaki Kawah Ijen terasa aman dan tak terlupakan.'
+        ]
+      }
+    ];
+
+    const SAMPLE_REVIEWS = [
+      {
+        id: 'rev-1',
+        name: 'Nadia & Pratama (Ilustrasi)',
+        initials: 'NP',
+        avatarBg: 'bg-terracotta',
+        destination: 'Labuan Bajo & Taman Nasional Komodo',
+        rating: 5,
+        date: 'Ilustrasi Pengalaman Perjalanan',
+        comment: 'Alur perjalanan per jamnya sangat jelas sejak sebelum berangkat. Tim di lapangan komunikatif dan transparan soal persiapan fisik maupun perlengkapan snorkeling di Pulau Padar dan Kanawa.'
+      },
+      {
+        id: 'rev-2',
+        name: 'Dimas Rahardian (Ilustrasi)',
+        initials: 'DR',
+        avatarBg: 'bg-aegean',
+        destination: 'Uluwatu & Nusa Penida Coastal Retreat',
+        rating: 5,
+        date: 'Ilustrasi Pengalaman Perjalanan',
+        comment: 'Suka sekali dengan pemilihan rute Uluwatu dan Nusa Penida yang tidak terburu-buru. Rincian biaya di awal juga transparan sehingga kami sekeluarga merasa tenang mengatur anggaran.'
+      },
+      {
+        id: 'rev-3',
+        name: 'Clarissa Putri (Ilustrasi)',
+        initials: 'CP',
+        avatarBg: 'bg-sage-dark',
+        destination: 'Belitung Granit & Hopping Island Escape',
+        rating: 5,
+        date: 'Ilustrasi Pengalaman Perjalanan',
+        comment: 'Nuansa perjalanannya hangat dan sangat terorganisir. Mulai dari penjemputan bandara, rekomendasi kuliner Mie Belitung, hingga hopping island ke Pulau Lengkuas berjalan tepat waktu.'
+      }
+    ];
+
+    const FAQ_DATA = [
+      {
+        q: 'Bagaimana cara melakukan pemesanan paket wisata di DAFTERNOON?',
+        a: 'Pilih destinasi dan paket wisata yang Anda inginkan, klik tombol "Reservasi Trip", isi tanggal keberangkatan, jumlah peserta, serta data pemesan. Setelah meninjau rincian biaya dan mendapatkan Kode Permintaan Reservasi unik, klik tombol "Konfirmasi via WhatsApp" untuk terhubung langsung dengan admin resmi DAFTERNOON (0895-2715-7912).'
+      },
+      {
+        q: 'Apakah tersedia pembayaran uang muka (DP)?',
+        a: 'Ya, tersedia. Setelah admin DAFTERNOON memverifikasi ketersediaan kuota kapal/akomodasi pada tanggal yang Anda pilih, Anda dapat mengamankan jadwal dengan pembayaran uang muka (DP) sebesar 30% hingga 40% sesuai ketentuan masing-masing paket wisata.'
+      },
+      {
+        q: 'Kapan batas waktu pelunasan pembayaran?',
+        a: 'Pelunasan sisa biaya perjalanan dilakukan selambat-lambatnya H-7 (tujuh hari kalender) sebelum tanggal keberangkatan. Untuk pemesanan mendadak (kurang dari H-7), pembayaran dilakukan penuh setelah ketersediaan dikonfirmasi oleh admin.'
+      },
+      {
+        q: 'Apa saja fasilitas yang sudah termasuk dan belum termasuk dalam paket?',
+        a: 'Setiap paket memiliki rincian fasilitas "Termasuk" dan "Tidak Termasuk" yang transparan di halaman detail itinerary masing-masing paket—umumnya mencakup transportasi lokal/kapal, akomodasi, konsumsi sesuai jadwal, pemandu, dan tiket wisata dasar, sedangkan tiket pesawat dari kota asal bersifat terpisah kecuali diminta khusus.'
+      },
+      {
+        q: 'Apakah jadwal perjalanan (itinerary) atau tanggal keberangkatan bisa diubah?',
+        a: 'Untuk Private Trip, jadwal dapat disesuaikan secara fleksibel sebelum keberangkatan berdasarkan kesepakatan bersama. Perubahan tanggal (reschedule) dapat diajukan maksimal H-14 sebelum keberangkatan dan mengikuti kebijakan ketersediaan mitra akomodasi/kapal di destinasi.'
+      },
+      {
+        q: 'Bagaimana kebijakan pembatalan perjalanan?',
+        a: 'Pembatalan yang diajukan oleh peserta akan diproses sesuai ketentuan Syarat & Ketentuan DAFTERNOON dengan memperhitungkan biaya komitmen yang telah dibayarkan kepada mitra lokal (kapal/hotel). Apabila terjadi kondisi cuaca ekstrem atau force majeure dari otoritas pelayaran/bandara, jadwal akan dijadwalkan ulang sesuai kesepakatan.'
+      },
+      {
+        q: 'Bagaimana cara menghubungi Customer Service resmi DAFTERNOON?',
+        a: 'Anda dapat menghubungi tim konsultasi kami setiap hari pukul 08.00 – 21.00 WIB melalui WhatsApp resmi di nomor 0895-2715-7912. Pastikan Anda hanya bertransaksi melalui nomor resmi tersebut.'
+      }
+    ];
+
+    const DEFAULT_CHECKLIST = [
+      { id: 'chk-1', category: 'Dokumen & Identitas', text: 'KTP / Paspor / Kartu Identitas Asli yang masih berlaku', checked: false },
+      { id: 'chk-2', category: 'Dokumen & Identitas', text: 'Bukti kode reservasi DAFTERNOON & tiket transportasi (pesawat/kereta)', checked: false },
+      { id: 'chk-3', category: 'Pakaian & Alas Kaki', text: 'Pakaian ganti berbahan nyaman & menyerap keringat sesuai durasi hari', checked: false },
+      { id: 'chk-4', category: 'Pakaian & Alas Kaki', text: 'Baju renang, pakaian santai pantai, serta jaket ringan/hangat (untuk gunung/kapal)', checked: false },
+      { id: 'chk-5', category: 'Pakaian & Alas Kaki', text: 'Sandal gunung / alas kaki anti-slip untuk trekking bukit & dermaga', checked: false },
+      { id: 'chk-6', category: 'Perlengkapan Pribadi & Kesehatan', text: 'Obat-obatan pribadi, obat anti mabuk laut, & vitamin perjalanan', checked: false },
+      { id: 'chk-7', category: 'Perlengkapan Pribadi & Kesehatan', text: 'Tabir surya ramah lingkungan (reef-safe sunscreen), kacamata hitam & topi', checked: false },
+      { id: 'chk-8', category: 'Perlengkapan Pribadi & Kesehatan', text: 'Powerbank, kabel pengisi daya, & dry bag tahan air untuk wisata laut', checked: false },
+      { id: 'chk-9', category: 'Jadwal & Barang Bawaan', text: 'Memastikan ulang jam keberangkatan & titik kumpul bersama admin DAFTERNOON', checked: false },
+      { id: 'chk-10', category: 'Jadwal & Barang Bawaan', text: 'Memeriksa kembali kelengkapan barang bawaan sebelum berangkat dari rumah', checked: false }
+    ];
+
+    // =========================================================================
+    // 2. STATE MANAGEMENT (LOCAL STORAGE FOR SESSION RESERVATIONS & CHECKLIST)
+    // =========================================================================
+    let currentRoute = 'home';
+    let leafletMapInstance = null;
+    let activeItineraryDay = 1;
+
+    // Booking Form State
+    let bookingState = {
+      step: 1,
+      destinationId: DESTINATIONS_DATA[0].id,
+      departureDate: '',
+      adults: 2,
+      children: 0,
+      promoCode: '',
+      appliedPromo: null,
+      fullName: '',
+      whatsapp: '',
+      email: '',
+      notes: '',
+      generatedCode: ''
+    };
+
+    // Load Local Reservations (Session / Browser Local Storage)
+    function getLocalReservations() {
+      try {
+        return JSON.parse(localStorage.getItem('dafternoon_reservations_v1') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveLocalReservation(record) {
+      try {
+        const list = getLocalReservations();
+        list.unshift(record);
+        localStorage.setItem('dafternoon_reservations_v1', JSON.stringify(list));
+        updateDashboardBadges();
+      } catch (e) {
+        console.warn('Storage unavailable', e);
+      }
+    }
+
+    function clearLocalReservations() {
+      try {
+        localStorage.removeItem('dafternoon_reservations_v1');
+        updateDashboardBadges();
+        if (currentRoute === 'dashboard') renderDashboardView();
+        showToast('Riwayat reservasi lokal di browser ini telah dibersihkan.', 'info');
+      } catch (e) {}
+    }
+
+    // Load Checklist State
+    function getChecklistItems() {
+      try {
+        const saved = localStorage.getItem('dafternoon_checklist_v1');
+        return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+      } catch (e) {
+        return JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+      }
+    }
+
+    function saveChecklistItems(items) {
+      try {
+        localStorage.setItem('dafternoon_checklist_v1', JSON.stringify(items));
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 3. UTILITIES (CURRENCY, TOASTS, CLIPBOARD, SCROLL)
+    // =========================================================================
+    function formatRupiah(num) {
+      return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      const colors = {
+        success: 'bg-aegean text-white border-sage',
+        error: 'bg-terracotta-dark text-white border-white/20',
+        info: 'bg-sand-card text-aegean border-sand-border'
+      };
+      const iconName = type === 'error' ? 'alert-circle' : (type === 'info' ? 'info' : 'check-circle-2');
+      toast.className = `pointer-events-auto flex items-start gap-3 px-4 py-3.5 rounded-2xl border shadow-xl text-sm font-medium transition-all duration-300 transform translate-x-4 opacity-0 ${colors[type] || colors.success}`;
+      toast.innerHTML = `
+        <i data-lucide="${iconName}" class="w-5 h-5 flex-shrink-0 mt-0.5 text-sunburst"></i>
+        <span class="leading-snug">${message}</span>
+      `;
+      container.appendChild(toast);
+      if (window.lucide) lucide.createIcons();
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-x-4', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-x-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3600);
+    }
+
+    function copyTextToClipboard(text, label = 'Teks') {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(`${label} "${text}" berhasil disalin ke clipboard!`, 'success');
+      } catch (err) {
+        showToast('Gagal menyalin teks. Silakan salin secara manual.', 'error');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function updateDashboardBadges() {
+      const count = getLocalReservations().length;
+      const b1 = document.getElementById('dashboard-badge');
+      const b2 = document.getElementById('dashboard-badge-mobile');
+      [b1, b2].forEach(badge => {
+        if (!badge) return;
+        if (count > 0) {
+          badge.textContent = count;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      });
+    }
+
+    // =========================================================================
+    // 4. YOUTUBE IFRAME API BACKGROUND MUSIC CONTROLLER
+    // =========================================================================
+    let ytPlayer = null;
+    let isMusicReady = false;
+    let isMusicPlaying = false;
+    let isMusicMuted = false;
+
+    // Load Official YouTube IFrame API asynchronously
+    (function loadYouTubeAPI() {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    })();
+
+    window.onYouTubeIframeAPIReady = function () {
+      try {
+        ytPlayer = new YT.Player('yt-bg-player', {
+          height: '120',
+          width: '120',
+          videoId: 'YkEcn_hvfpg',
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            loop: 1,
+            playlist: 'YkEcn_hvfpg',
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1
+          },
+          events: {
+            onReady: function (event) {
+              isMusicReady = true;
+              event.target.setVolume(45);
+            },
+            onStateChange: function (event) {
+              if (event.data === YT.PlayerState.PLAYING) {
+                isMusicPlaying = true;
+                updateMusicUI();
+              } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isMusicPlaying = false;
+                updateMusicUI();
+              }
+            },
+            onError: function () {
+              const statusEl = document.getElementById('music-status-text');
+              if (statusEl) statusEl.textContent = 'Audio tidak tersedia di perangkat ini';
+            }
+          }
+        });
+      } catch (e) {
+        console.warn('YouTube Player init warning:', e);
+      }
+    };
+
+    function toggleBackgroundMusic() {
+      if (!isMusicReady || !ytPlayer) {
+        showToast('Pemutar musik sedang menyiapkan koneksi audio, silakan coba sesaat lagi.', 'info');
+        return;
+      }
+      if (isMusicPlaying) {
+        ytPlayer.pauseVideo();
+        isMusicPlaying = false;
+      } else {
+        ytPlayer.playVideo();
+        isMusicPlaying = true;
+      }
+      updateMusicUI();
+    }
+
+    function changeMusicVolume(val) {
+      const vol = parseInt(val, 10);
+      if (isMusicReady && ytPlayer) {
+        ytPlayer.setVolume(vol);
+        if (vol > 0 && isMusicMuted) {
+          ytPlayer.unMute();
+          isMusicMuted = false;
+        }
+      }
+      updateMusicUI();
+    }
+
+    function toggleMuteMusic() {
+      if (!isMusicReady || !ytPlayer) return;
+      if (isMusicMuted) {
+        ytPlayer.unMute();
+        isMusicMuted = false;
+      } else {
+        ytPlayer.mute();
+        isMusicMuted = true;
+      }
+      updateMusicUI();
+    }
+
+    function updateMusicUI() {
+      const playIcon = document.getElementById('music-play-icon');
+      const eq = document.getElementById('music-equalizer');
+      const statusText = document.getElementById('music-status-text');
+      const volIcon = document.getElementById('music-vol-icon');
+
+      if (playIcon) {
+        playIcon.setAttribute('data-lucide', isMusicPlaying ? 'pause' : 'play');
+      }
+      if (eq) {
+        if (isMusicPlaying) eq.classList.add('eq-playing');
+        else eq.classList.remove('eq-playing');
+      }
+      if (statusText) {
+        statusText.textContent = isMusicPlaying ? 'Sedang diputar • Nuansa Santai' : 'Dijeda • Klik Play untuk memutar';
+      }
+      if (volIcon) {
+        volIcon.setAttribute('data-lucide', isMusicMuted ? 'volume-x' : 'volume-2');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 5. SPA ROUTING & NAVIGATION
+    // =========================================================================
+    function toggleMobileMenu(forceState) {
+      const menu = document.getElementById('mobile-menu');
+      if (!menu) return;
+      if (typeof forceState === 'boolean') {
+        menu.classList.toggle('hidden', !forceState);
+      } else {
+        menu.classList.toggle('hidden');
+      }
+    }
+
+    function navigateTo(route) {
+      currentRoute = route;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Update Desktop Active Nav Styling
+      document.querySelectorAll('.nav-pill').forEach(btn => {
+        const isTarget = btn.getAttribute('data-nav') === route;
+        if (isTarget) {
+          btn.classList.add('bg-aegean', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-aegean/80', 'hover:text-aegean');
+        } else {
+          btn.classList.remove('bg-aegean', 'text-white', 'shadow-sm');
+          btn.classList.add('text-aegean/80', 'hover:text-aegean');
+        }
+      });
+
+      const dashBtn = document.querySelector('.nav-dashboard-btn');
+      if (dashBtn) {
+        if (route === 'dashboard') {
+          dashBtn.classList.add('ring-2', 'ring-terracotta/40', 'bg-terracotta-soft');
+        } else {
+          dashBtn.classList.remove('ring-2', 'ring-terracotta/40', 'bg-terracotta-soft');
+        }
+      }
+
+      switch (route) {
+        case 'home':
+          renderHomeView();
+          break;
+        case 'packages':
+          renderPackagesView();
+          break;
+        case 'map':
+          renderMapView();
+          break;
+        case 'offers':
+          renderOffersView();
+          break;
+        case 'journal':
+          renderJournalView();
+          break;
+        case 'tools':
+          renderToolsView();
+          break;
+        case 'dashboard':
+          renderDashboardView();
+          break;
+        default:
+          renderHomeView();
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 6. VIEW RENDERERS
+    // =========================================================================
+
+    // -------------------- HOME VIEW --------------------
+    function renderHomeView() {
+      const main = document.getElementById('app-main');
+      const featuredPackages = DESTINATIONS_DATA.slice(0, 3);
+
+      main.innerHTML = `
+        <div class="spa-view">
+          <!-- HERO SECTION: WHIMSICAL SUMMER MEDITERRANEAN -->
+          <section class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <!-- Left Copy -->
+                <div class="lg:col-span-7 space-y-6">
+                  <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-sunburst-soft border border-sunburst text-aegean text-xs sm:text-sm font-semibold">
+                    <i data-lucide="sun" class="w-4 h-4 text-terracotta"></i>
+                    <span>Whimsical Summer Mediterranean • Pariwisata Nusantara</span>
+                  </div>
+
+                  <h1 class="font-serif font-bold text-4xl sm:text-5xl lg:text-[3.5rem] text-aegean leading-[1.12] tracking-tight">
+                    Hangatnya Senja <span class="text-terracotta italic font-semibold">Kepulauan Indonesia</span> dalam Satu Perjalanan Terkurasi.
+                  </h1>
+
+                  <p class="text-base sm:text-lg text-aegean/80 leading-relaxed max-w-2xl">
+                    Bersama <strong class="text-aegean">DAFTERNOON</strong>, jelajahi pesona pesisir dan pegunungan terbaik Indonesia—mulai dari pelayaran Phinisi di Labuan Bajo, tebing kapur Uluwatu, hingga gugusan karst Raja Ampat dengan itinerary transparan dan pelayanan hangat.
+                  </p>
+
+                  <!-- Hero Actions -->
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+                    <button onclick="navigateTo('packages')" class="px-7 py-4 rounded-full bg-terracotta hover:bg-terracotta-dark text-white font-semibold text-sm sm:text-base shadow-terracotta flex items-center justify-center gap-2.5 transition-all transform hover:-translate-y-0.5">
+                      <i data-lucide="compass" class="w-5 h-5"></i>
+                      <span>Jelajahi Paket & Itinerary</span>
+                    </button>
+                    <button onclick="navigateTo('map')" class="px-7 py-4 rounded-full bg-sand-card hover:bg-sand-warm text-aegean border border-sand-border font-semibold text-sm sm:text-base flex items-center justify-center gap-2.5 transition-all">
+                      <i data-lucide="map-pin" class="w-5 h-5 text-terracotta"></i>
+                      <span>Peta Destinasi Interaktif</span>
+                    </button>
+                  </div>
+
+                  <!-- Quick Value Pillars -->
+                  <div class="grid grid-cols-3 gap-4 pt-6 border-t border-sand-border/80 max-w-xl">
+                    <div>
+                      <span class="font-serif font-bold text-2xl sm:text-3xl text-aegean block">6+</span>
+                      <span class="text-xs text-aegean/70">Destinasi Unggulan Nusantara</span>
+                    </div>
+                    <div>
+                      <span class="font-serif font-bold text-2xl sm:text-3xl text-terracotta block">100%</span>
+                      <span class="text-xs text-aegean/70">Timeline Jadwal Transparan</span>
+                    </div>
+                    <div>
+                      <span class="font-serif font-bold text-2xl sm:text-3xl text-sage-dark block">30–40%</span>
+                      <span class="text-xs text-aegean/70">Opsi Uang Muka (DP) Fleksibel</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Mediterranean Arch Visual Showcase -->
+                <div class="lg:col-span-5 relative">
+                  <div class="relative mx-auto max-w-md">
+                    <!-- Decorative Sun Halo -->
+                    <div class="absolute -top-6 -right-6 w-36 h-36 rounded-full bg-sunburst/45 blur-xl pointer-events-none"></div>
+                    <div class="absolute -bottom-6 -left-6 w-40 h-40 rounded-full bg-sage/30 blur-xl pointer-events-none"></div>
+
+                    <!-- Main Arch Image -->
+                    <div class="arch-frame overflow-hidden border-8 border-sand-card shadow-mediterranean bg-sand-warm aspect-[4/5]">
+                      <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=900&q=85" alt="Panorama Pelayaran Pulau Padar Labuan Bajo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x750/E07A5F/FDF8F2?text=DAFTERNOON+Indonesia'" />
+                    </div>
+
+                    <!-- Floating Coastal Card -->
+                    <div class="absolute -bottom-5 left-4 right-4 sm:left-6 sm:right-6 bg-sand-card/95 backdrop-blur-md border border-sand-border rounded-2xl p-4 shadow-mediterranean flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-terracotta-soft text-terracotta flex items-center justify-center flex-shrink-0">
+                          <i data-lucide="calendar-heart" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                          <span class="text-[11px] font-bold uppercase tracking-wider text-terracotta block">Kode Promo Aktif</span>
+                          <span class="text-sm font-bold text-aegean">SUMMERID • Hemat Rp 350rb</span>
+                        </div>
+                      </div>
+                      <button onclick="copyTextToClipboard('SUMMERID', 'Kode Voucher')" class="px-3 py-1.5 rounded-full bg-aegean text-white text-xs font-semibold hover:bg-aegean-dark transition-colors flex-shrink-0">
+                        Salin
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- FEATURED PACKAGES SECTION -->
+          <section class="py-14 bg-sand-warm/70 border-y border-sand-border/70">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Kurasi Pilihan Musim Ini</span>
+                  <h2 class="font-serif font-bold text-3xl sm:text-4xl text-aegean">Paket Wisata & Timeline Detail</h2>
+                </div>
+                <button onclick="navigateTo('packages')" class="inline-flex items-center gap-2 text-sm font-bold text-terracotta hover:text-terracotta-dark">
+                  <span>Lihat Semua 6 Destinasi</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+                ${featuredPackages.map(pkg => renderPackageCardHTML(pkg)).join('')}
+              </div>
+            </div>
+          </section>
+
+          <!-- INTERACTIVE MINI PREVIEW: PROMO + CHECKLIST + MAP -->
+          <section class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Perencanaan Tanpa Cemas</span>
+                <h2 class="font-serif font-bold text-3xl sm:text-4xl text-aegean mb-3">Semua Kebutuhan Liburan dalam Satu Tempat</h2>
+                <p class="text-sm sm:text-base text-aegean/75">Rancang perjalanan lebih matang dengan peta interaktif nusantara, daftar perlengkapan pribadi, hingga kalkulator estimasi biaya otomatis.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div onclick="navigateTo('map')" class="cursor-pointer group bg-sand-card border border-sand-border rounded-3xl p-7 shadow-mediterranean hover:-translate-y-1 transition-all">
+                  <div class="w-12 h-12 rounded-2xl bg-aegean-soft text-aegean flex items-center justify-center mb-5 group-hover:bg-aegean group-hover:text-white transition-colors">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                  </div>
+                  <h3 class="font-serif font-bold text-xl text-aegean mb-2">Peta Destinasi Interaktif</h3>
+                  <p class="text-sm text-aegean/75 leading-relaxed mb-4">Telusuri titik lokasi destinasi DAFTERNOON di seluruh Indonesia lengkap dengan highlight wisata dan estimasi harga.</p>
+                  <span class="inline-flex items-center gap-1.5 text-xs font-bold text-terracotta">Buka Peta <i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                </div>
+
+                <div onclick="navigateTo('tools')" class="cursor-pointer group bg-sand-card border border-sand-border rounded-3xl p-7 shadow-mediterranean hover:-translate-y-1 transition-all">
+                  <div class="w-12 h-12 rounded-2xl bg-sage-soft text-sage-dark flex items-center justify-center mb-5 group-hover:bg-sage group-hover:text-white transition-colors">
+                    <i data-lucide="check-square" class="w-6 h-6"></i>
+                  </div>
+                  <h3 class="font-serif font-bold text-xl text-aegean mb-2">Travel Checklist Interaktif</h3>
+                  <p class="text-sm text-aegean/75 leading-relaxed mb-4">Tandai identitas, pakaian, obat pribadi, hingga jadwal keberangkatan dengan indikator persentase kesiapan otomatis.</p>
+                  <span class="inline-flex items-center gap-1.5 text-xs font-bold text-terracotta">Cek Persiapan <i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                </div>
+
+                <div onclick="navigateTo('offers')" class="cursor-pointer group bg-sand-card border border-sand-border rounded-3xl p-7 shadow-mediterranean hover:-translate-y-1 transition-all">
+                  <div class="w-12 h-12 rounded-2xl bg-sunburst-soft text-terracotta flex items-center justify-center mb-5 group-hover:bg-terracotta group-hover:text-white transition-colors">
+                    <i data-lucide="ticket" class="w-6 h-6"></i>
+                  </div>
+                  <h3 class="font-serif font-bold text-xl text-aegean mb-2">Penawaran & Voucher Spesial</h3>
+                  <p class="text-sm text-aegean/75 leading-relaxed mb-4">Gunakan kode voucher resmi DAFTERNOON langsung di kalkulator reservasi untuk potongan biaya perjalanan Anda.</p>
+                  <span class="inline-flex items-center gap-1.5 text-xs font-bold text-terracotta">Lihat Voucher <i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- CUSTOMER REVIEWS SECTION (WITH TRANSPARENT DISCLAIMER) -->
+          <section class="py-14 bg-sand-warm/70 border-t border-sand-border/70">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Cerita Perjalanan</span>
+                  <h2 class="font-serif font-bold text-3xl text-aegean">Ulasan & Pengalaman Wisatawan</h2>
+                </div>
+                <!-- Honest Disclosure Badge -->
+                <div class="inline-flex items-start sm:items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-sunburst-soft border border-sunburst text-xs text-aegean max-w-md">
+                  <i data-lucide="info" class="w-4 h-4 text-terracotta flex-shrink-0 mt-0.5 sm:mt-0"></i>
+                  <span><strong>Keterangan Transparansi:</strong> Kartu di bawah ini merupakan <em>ulasan contoh (ilustrasi tampilan)</em> sebelum integrasi ulasan pelanggan terverifikasi aktif.</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                ${SAMPLE_REVIEWS.map(rev => `
+                  <article class="bg-sand-card border border-sand-border rounded-3xl p-6 shadow-mediterranean flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between gap-2 mb-4">
+                        <div class="flex items-center gap-1 text-terracotta" aria-label="Rating ${rev.rating} dari 5 bintang">
+                          ${Array(rev.rating).fill('<i data-lucide="star" class="w-4 h-4 fill-current"></i>').join('')}
+                        </div>
+                        <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-sand-warm text-aegean/70 border border-sand-border">Contoh Ilustrasi</span>
+                      </div>
+                      <p class="text-sm text-aegean/85 leading-relaxed italic mb-5">"${rev.comment}"</p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-sand-border/70">
+                      <div class="w-10 h-10 rounded-full ${rev.avatarBg} text-white font-bold text-xs flex items-center justify-center flex-shrink-0">
+                        ${rev.initials}
+                      </div>
+                      <div class="min-w-0">
+                        <h4 class="font-bold text-sm text-aegean truncate">${rev.name}</h4>
+                        <span class="text-xs text-terracotta block truncate">${rev.destination}</span>
+                      </div>
+                    </div>
+                  </article>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // Helper: Package Card HTML
+    function renderPackageCardHTML(pkg) {
+      return `
+        <article class="bg-sand-card border border-sand-border rounded-3xl overflow-hidden shadow-mediterranean flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300">
+          <div>
+            <div class="relative h-56 overflow-hidden bg-sand-warm">
+              <img src="${pkg.image}" alt="${pkg.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x500/1D4E5F/FDF8F2?text=${encodeURIComponent(pkg.region)}'" />
+              <div class="absolute top-3.5 left-3.5 flex flex-wrap gap-1.5">
+                <span class="px-3 py-1 rounded-full bg-aegean/90 backdrop-blur-sm text-white text-xs font-semibold">${pkg.region}</span>
+                <span class="px-3 py-1 rounded-full bg-sand-card/95 text-aegean text-xs font-bold">${pkg.duration}</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <span class="text-xs font-semibold text-terracotta block mb-1">${pkg.tripType}</span>
+              <h3 class="font-serif font-bold text-xl text-aegean mb-2 leading-snug">${pkg.name}</h3>
+              <p class="text-sm text-aegean/75 line-clamp-2 mb-4">${pkg.tagline}</p>
+
+              <!-- Highlights Pills -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                ${pkg.highlights.slice(0, 3).map(h => `
+                  <span class="text-[11px] px-2.5 py-1 rounded-full bg-sand-warm text-aegean/85 border border-sand-border/80">${h}</span>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 pb-6 pt-3 border-t border-sand-border/70 flex items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] text-aegean/65 block">Mulai dari</span>
+              <span class="font-serif font-bold text-lg text-aegean">${formatRupiah(pkg.pricePerPax)}</span>
+              <span class="text-[11px] text-aegean/65">/org</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openItineraryModal('${pkg.id}')" class="px-3.5 py-2 rounded-full bg-sand-warm hover:bg-aegean hover:text-white text-aegean border border-sand-border text-xs font-semibold transition-colors">
+                Itinerary
+              </button>
+              <button onclick="openBookingModal('${pkg.id}')" class="px-4 py-2 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-xs font-semibold shadow-sm transition-colors">
+                Pesan
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // -------------------- PACKAGES & TIMELINE ITINERARY VIEW --------------------
+    function renderPackagesView(filterRegion = 'Semua') {
+      const main = document.getElementById('app-main');
+      const regions = ['Semua', ...new Set(DESTINATIONS_DATA.map(d => d.region))];
+      const filtered = filterRegion === 'Semua'
+        ? DESTINATIONS_DATA
+        : DESTINATIONS_DATA.filter(d => d.region === filterRegion);
+
+      main.innerHTML = `
+        <div class="spa-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="max-w-3xl mb-8">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Katalog Perjalanan Nusantara</span>
+            <h1 class="font-serif font-bold text-3xl sm:text-5xl text-aegean mb-3">Paket Wisata & Timeline Interaktif</h1>
+            <p class="text-sm sm:text-base text-aegean/80 leading-relaxed">
+              Klik tombol <strong>Itinerary</strong> pada setiap paket untuk melihat jadwal perjalanan per hari, jam keberangkatan & kepulangan, waktu makan, estimasi durasi perjalanan, serta fasilitas yang termasuk.
+            </p>
+          </div>
+
+          <!-- Region Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2 mb-8">
+            ${regions.map(reg => `
+              <button onclick="renderPackagesView('${reg}'); if(window.lucide) lucide.createIcons();" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${filterRegion === reg ? 'bg-aegean text-white shadow' : 'bg-sand-card text-aegean border border-sand-border hover:bg-sand-warm'}">
+                ${reg}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Packages Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            ${filtered.map(pkg => renderPackageCardHTML(pkg)).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Open Detailed Interactive Timeline Itinerary Modal
+    function openItineraryModal(pkgId) {
+      const pkg = DESTINATIONS_DATA.find(d => d.id === pkgId);
+      if (!pkg) return;
+
+      activeItineraryDay = 1;
+      document.getElementById('modal-pkg-region').textContent = `${pkg.region} • ${pkg.duration} • ${pkg.tripType}`;
+      document.getElementById('modal-pkg-title').textContent = pkg.name;
+      document.getElementById('modal-pkg-price').textContent = formatRupiah(pkg.pricePerPax);
+
+      const bookBtn = document.getElementById('modal-pkg-book-btn');
+      bookBtn.onclick = () => {
+        closeModal('itinerary-modal');
+        openBookingModal(pkg.id);
+      };
+
+      renderItineraryModalBody(pkg, 1);
+
+      const modal = document.getElementById('itinerary-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderItineraryModalBody(pkg, selectedDay) {
+      const body = document.getElementById('itinerary-modal-body');
+      const dayObj = pkg.itinerary.find(i => i.day === selectedDay) || pkg.itinerary[0];
+
+      body.innerHTML = `
+        <!-- Hero Banner inside Modal -->
+        <div class="relative h-48 sm:h-56 rounded-2xl overflow-hidden">
+          <img src="${pkg.image}" alt="${pkg.name}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/900x400/1D4E5F/FDF8F2?text=DAFTERNOON'" />
+          <div class="absolute inset-0 bg-gradient-to-t from-aegean-dark/80 via-transparent to-transparent flex items-end p-5">
+            <p class="text-white text-sm sm:text-base font-medium">${pkg.tagline}</p>
+          </div>
+        </div>
+
+        <!-- Day Selector Tabs -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="font-serif font-bold text-lg text-aegean">Jadwal Perjalanan (Timeline)</h4>
+            <span class="text-xs text-aegean/70">Pilih hari untuk melihat rincian waktu</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            ${pkg.itinerary.map(item => `
+              <button onclick="switchItineraryDay('${pkg.id}', ${item.day})" class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all ${item.day === selectedDay ? 'bg-terracotta text-white shadow-terracotta' : 'bg-sand-warm text-aegean border border-sand-border hover:bg-sand'}">
+                Hari ${item.day}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Selected Day Summary Bar -->
+        <div class="bg-aegean-soft/80 border border-aegean/15 rounded-2xl p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="sunrise" class="w-4 h-4 text-terracotta flex-shrink-0"></i>
+            <div>
+              <span class="text-aegean/70 block">Mulai Aktivitas</span>
+              <strong class="text-aegean text-sm">${dayObj.departure}</strong>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="moon" class="w-4 h-4 text-aegean flex-shrink-0"></i>
+            <div>
+              <span class="text-aegean/70 block">Selesai / Istirahat</span>
+              <strong class="text-aegean text-sm">${dayObj.arrival}</strong>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="clock" class="w-4 h-4 text-sage-dark flex-shrink-0"></i>
+            <div>
+              <span class="text-aegean/70 block">Estimasi Perjalanan</span>
+              <strong class="text-aegean text-sm">${dayObj.estTravel}</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical Interactive Timeline -->
+        <div class="bg-sand/70 border border-sand-border rounded-2xl p-5">
+          <h5 class="font-serif font-bold text-base sm:text-lg text-aegean mb-5">Hari ${dayObj.day}: ${dayObj.title}</h5>
+          <div class="relative pl-6 border-l-2 border-terracotta/40 space-y-6">
+            ${dayObj.steps.map((step, idx) => `
+              <div class="relative">
+                <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-terracotta border-4 border-sand-card shadow"></span>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-terracotta-soft text-terracotta text-xs font-bold">
+                    <i data-lucide="clock" class="w-3 h-3"></i> ${step.time}
+                  </span>
+                  ${step.meal && step.meal !== '-' ? `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sage-soft text-sage-dark text-xs font-semibold">
+                      <i data-lucide="utensils" class="w-3 h-3"></i> ${step.meal}
+                    </span>
+                  ` : ''}
+                </div>
+                <h6 class="font-bold text-sm sm:text-base text-aegean">${idx + 1}. ${step.place}</h6>
+                <p class="text-xs sm:text-sm text-aegean/80 leading-relaxed mt-1">${step.activity}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Facilities Included & Excluded -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-sage-soft/60 border border-sage/30 rounded-2xl p-5">
+            <h5 class="font-serif font-bold text-base text-aegean mb-3 flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-sage-dark"></i>
+              <span>Fasilitas Termasuk</span>
+            </h5>
+            <ul class="space-y-2 text-xs sm:text-sm text-aegean/85">
+              ${pkg.included.map(inc => `<li class="flex items-start gap-2"><span class="text-sage-dark font-bold">•</span><span>${inc}</span></li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="bg-terracotta-soft/50 border border-terracotta/25 rounded-2xl p-5">
+            <h5 class="font-serif font-bold text-base text-aegean mb-3 flex items-center gap-2">
+              <i data-lucide="minus-circle" class="w-4 h-4 text-terracotta"></i>
+              <span>Belum Termasuk</span>
+            </h5>
+            <ul class="space-y-2 text-xs sm:text-sm text-aegean/85">
+              ${pkg.excluded.map(exc => `<li class="flex items-start gap-2"><span class="text-terracotta font-bold">•</span><span>${exc}</span></li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function switchItineraryDay(pkgId, day) {
+      const pkg = DESTINATIONS_DATA.find(d => d.id === pkgId);
+      if (!pkg) return;
+      renderItineraryModalBody(pkg, day);
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // -------------------- INTERACTIVE DESTINATION MAP VIEW --------------------
+    function renderMapView() {
+      const main = document.getElementById('app-main');
+      main.innerHTML = `
+        <div class="spa-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="max-w-3xl mb-8">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Jelajah Geografis Nusantara</span>
+            <h1 class="font-serif font-bold text-3xl sm:text-5xl text-aegean mb-3">Peta Interaktif Destinasi DAFTERNOON</h1>
+            <p class="text-sm sm:text-base text-aegean/80">
+              Klik penanda lokasi pada peta Indonesia atau pilih kartu destinasi di samping untuk melihat ringkasan wisata, koordinat wilayah, serta membuka detail itinerary lengkap.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+            <!-- Map Container -->
+            <div class="lg:col-span-8 bg-sand-card border border-sand-border rounded-3xl p-3 shadow-mediterranean">
+              <div id="indonesia-leaflet-map" class="w-full h-[380px] sm:h-[500px] rounded-2xl z-10 bg-aegean-soft"></div>
+            </div>
+
+            <!-- Destination Quick Selector List -->
+            <div class="lg:col-span-4 space-y-3 max-h-[526px] overflow-y-auto pr-1">
+              ${DESTINATIONS_DATA.map(dest => `
+                <div class="bg-sand-card border border-sand-border rounded-2xl p-4 hover:border-terracotta transition-all shadow-sm">
+                  <div class="flex items-start justify-between gap-2">
+                    <div>
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-terracotta">${dest.region}</span>
+                      <h3 class="font-serif font-bold text-base text-aegean leading-snug">${dest.name}</h3>
+                    </div>
+                    <button onclick="focusMapDestination('${dest.id}')" class="p-2 rounded-full bg-sand-warm text-aegean hover:bg-aegean hover:text-white transition-colors" title="Fokuskan di Peta">
+                      <i data-lucide="crosshair" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                  <p class="text-xs text-aegean/75 mt-1.5 mb-3">${dest.duration} • Mulai ${formatRupiah(dest.pricePerPax)}</p>
+                  <div class="flex items-center gap-2">
+                    <button onclick="openItineraryModal('${dest.id}')" class="flex-1 py-2 rounded-full bg-sand-warm hover:bg-aegean hover:text-white text-aegean text-xs font-semibold border border-sand-border transition-colors">
+                      Detail Destinasi
+                    </button>
+                    <button onclick="openBookingModal('${dest.id}')" class="px-4 py-2 rounded-full bg-terracotta text-white text-xs font-semibold hover:bg-terracotta-dark transition-colors">
+                      Pesan
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      setTimeout(initLeafletMap, 80);
+    }
+
+    const mapMarkersById = {};
+
+    function initLeafletMap() {
+      const mapEl = document.getElementById('indonesia-leaflet-map');
+      if (!mapEl || typeof L === 'undefined') return;
+
+      if (leafletMapInstance) {
+        leafletMapInstance.remove();
+        leafletMapInstance = null;
+      }
+
+      leafletMapInstance = L.map('indonesia-leaflet-map', {
+        center: [-2.5, 118.0],
+        zoom: 5,
+        scrollWheelZoom: false
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        maxZoom: 18
+      }).addTo(leafletMapInstance);
+
+      DESTINATIONS_DATA.forEach(dest => {
+        const pinIcon = L.divIcon({
+          className: 'custom-daf-pin',
+          html: `<div style="width:32px;height:32px;border-radius:999px;background:#E07A5F;border:3px solid #FFFDF9;box-shadow:0 4px 12px rgba(29,78,95,0.35);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;">✦</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
+        });
+
+        const marker = L.marker(dest.coords, { icon: pinIcon }).addTo(leafletMapInstance);
+        marker.bindPopup(`
+          <div style="min-width:210px;font-family:'Plus Jakarta Sans',sans-serif;padding:4px;">
+            <span style="font-size:10px;font-weight:700;color:#E07A5F;text-transform:uppercase;letter-spacing:0.08em;">${dest.region}</span>
+            <h4 style="font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:#1D4E5F;margin:2px 0 6px;">${dest.name}</h4>
+            <p style="font-size:12px;color:#1D4E5F;opacity:0.8;margin-bottom:8px;">${dest.tagline}</p>
+            <div style="font-size:12px;font-weight:700;color:#1D4E5F;margin-bottom:10px;">${dest.duration} • ${formatRupiah(dest.pricePerPax)}/org</div>
+            <button onclick="openItineraryModal('${dest.id}')" style="width:100%;padding:7px 12px;border-radius:999px;background:#E07A5F;color:#fff;font-weight:600;font-size:12px;border:none;cursor:pointer;">
+              Lihat Detail & Itinerary
+            </button>
+          </div>
+        `);
+        mapMarkersById[dest.id] = marker;
+      });
+    }
+
+    function focusMapDestination(destId) {
+      const dest = DESTINATIONS_DATA.find(d => d.id === destId);
+      if (!dest || !leafletMapInstance) return;
+      leafletMapInstance.flyTo(dest.coords, 7, { duration: 1.1 });
+      const marker = mapMarkersById[destId];
+      if (marker) {
+        setTimeout(() => marker.openPopup(), 600);
+      }
+    }
+
+    // -------------------- SPECIAL OFFERS & PROMOTIONS VIEW --------------------
+    function renderOffersView() {
+      const main = document.getElementById('app-main');
+      main.innerHTML = `
+        <div class="spa-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="max-w-3xl mb-10">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Penawaran Spesial & Voucher</span>
+            <h1 class="font-serif font-bold text-3xl sm:text-5xl text-aegean mb-3">Promo Perjalanan Musim Ini</h1>
+            <p class="text-sm sm:text-base text-aegean/80">
+              Salin kode voucher di bawah ini dan terapkan langsung pada formulir reservasi DAFTERNOON untuk mendapatkan kalkulasi potongan harga otomatis.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            ${PROMOS_DATA.map(promo => `
+              <div class="bg-sand-card border border-sand-border rounded-3xl p-6 shadow-mediterranean flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute top-0 right-0 px-4 py-1.5 rounded-bl-2xl bg-terracotta text-white text-xs font-bold">
+                  ${promo.badge}
+                </div>
+
+                <div class="pt-4">
+                  <span class="text-xs text-aegean/65 flex items-center gap-1.5 mb-2">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-terracotta"></i> Berlaku s/d ${promo.validUntil}
+                  </span>
+                  <h3 class="font-serif font-bold text-xl text-aegean mb-2">${promo.title}</h3>
+                  <p class="text-sm text-aegean/80 leading-relaxed mb-5">${promo.description}</p>
+
+                  <!-- Voucher Code Box -->
+                  <div class="p-3.5 rounded-2xl bg-sand-warm border border-dashed border-terracotta flex items-center justify-between gap-2 mb-5">
+                    <div>
+                      <span class="text-[10px] uppercase tracking-wider text-aegean/65 block">Kode Voucher</span>
+                      <span class="font-mono font-bold text-base text-aegean tracking-wider">${promo.code}</span>
+                    </div>
+                    <button onclick="copyTextToClipboard('${promo.code}', 'Kode Promo')" class="px-3.5 py-2 rounded-full bg-aegean hover:bg-aegean-dark text-white text-xs font-semibold transition-colors">
+                      Salin Kode
+                    </button>
+                  </div>
+
+                  <!-- Terms & Conditions Accordion -->
+                  <details class="group border-t border-sand-border pt-3">
+                    <summary class="list-none cursor-pointer flex items-center justify-between text-xs font-bold text-aegean hover:text-terracotta">
+                      <span>Syarat & Ketentuan Promo</span>
+                      <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <ul class="mt-2.5 space-y-1.5 text-xs text-aegean/75">
+                      ${promo.terms.map(t => `<li class="flex items-start gap-1.5"><span>•</span><span>${t}</span></li>`).join('')}
+                    </ul>
+                  </details>
+                </div>
+
+                <div class="pt-5 mt-5 border-t border-sand-border/70">
+                  <button onclick="applyPromoAndBook('${promo.code}')" class="w-full py-3 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-xs sm:text-sm font-semibold shadow-terracotta transition-all">
+                    Gunakan Voucher di Reservasi
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function applyPromoAndBook(code) {
+      bookingState.promoCode = code;
+      openBookingModal();
+      setTimeout(() => applyBookingPromoCode(), 60);
+    }
+
+    // -------------------- TRAVEL JOURNAL / BLOG VIEW --------------------
+    function renderJournalView(activeCategory = 'Semua') {
+      const main = document.getElementById('app-main');
+      const categories = [
+        'Semua',
+        'Rekomendasi Destinasi Wisata',
+        'Tips Perjalanan',
+        'Panduan Liburan',
+        'Informasi Budaya & Kuliner Daerah',
+        'Pengalaman Menjelajahi Tempat Wisata'
+      ];
+
+      const filteredArticles = activeCategory === 'Semua'
+        ? JOURNAL_DATA
+        : JOURNAL_DATA.filter(a => a.category === activeCategory);
+
+      main.innerHTML = `
+        <div class="spa-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="max-w-3xl mb-8">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Catatan & Inspirasi Nusantara</span>
+            <h1 class="font-serif font-bold text-3xl sm:text-5xl text-aegean mb-3">DAFTERNOON Travel Journal</h1>
+            <p class="text-sm sm:text-base text-aegean/80">
+              Kumpulan artikel panduan liburan, budaya, kuliner daerah, dan catatan perjalanan menyusuri keindahan kepulauan Indonesia.
+            </p>
+          </div>
+
+          <!-- Category Filters -->
+          <div class="flex flex-wrap gap-2 mb-9">
+            ${categories.map(cat => `
+              <button onclick="renderJournalView('${cat}'); if(window.lucide) lucide.createIcons();" class="px-4 py-2 rounded-full text-xs font-semibold transition-all ${activeCategory === cat ? 'bg-terracotta text-white shadow-terracotta' : 'bg-sand-card text-aegean border border-sand-border hover:bg-sand-warm'}">
+                ${cat}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Articles Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            ${filteredArticles.map(art => `
+              <article class="bg-sand-card border border-sand-border rounded-3xl overflow-hidden shadow-mediterranean flex flex-col justify-between group">
+                <div>
+                  <div class="relative h-52 overflow-hidden bg-sand-warm">
+                    <img src="${art.image}" alt="${art.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x500/81B29A/FDF8F2?text=Travel+Journal'" />
+                    <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-sand-card/95 text-aegean text-[11px] font-bold shadow-sm">
+                      ${art.category}
+                    </span>
+                  </div>
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 text-xs text-aegean/65 mb-2">
+                      <span>${art.date}</span>
+                      <span>•</span>
+                      <span>${art.readTime}</span>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl text-aegean mb-2.5 leading-snug group-hover:text-terracotta transition-colors">
+                      ${art.title}
+                    </h3>
+                    <p class="text-sm text-aegean/75 leading-relaxed line-clamp-3">${art.excerpt}</p>
+                  </div>
+                </div>
+                <div class="px-6 pb-6 pt-3 border-t border-sand-border/60">
+                  <button onclick="openArticleModal('${art.id}')" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-terracotta hover:text-terracotta-dark">
+                    <span>Baca Artikel Lengkap</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function openArticleModal(articleId) {
+      const art = JOURNAL_DATA.find(a => a.id === articleId);
+      if (!art) return;
+
+      document.getElementById('article-modal-cat').textContent = art.category;
+      document.getElementById('article-modal-body').innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center gap-3 text-xs text-aegean/70">
+            <span>Dipublikasikan: ${art.date}</span>
+            <span>•</span>
+            <span>${art.readTime}</span>
+          </div>
+          <h2 class="font-serif font-bold text-2xl sm:text-3xl text-aegean leading-tight">${art.title}</h2>
+          <div class="h-64 sm:h-80 rounded-2xl overflow-hidden">
+            <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/900x450/1D4E5F/FDF8F2?text=DAFTERNOON+Journal'" />
+          </div>
+          <div class="space-y-4 text-sm sm:text-base text-aegean/90 leading-relaxed pt-2">
+            ${art.content.map(p => `<p>${p}</p>`).join('')}
+          </div>
+          <div class="mt-6 p-5 rounded-2xl bg-sand-warm border border-sand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h4 class="font-serif font-bold text-base text-aegean">Tertarik menjelajahi destinasi ini?</h4>
+              <p class="text-xs text-aegean/75">Lihat jadwal perjalanan lengkap atau konsultasikan tanggal keberangkatan Anda.</p>
+            </div>
+            <button onclick="closeModal('article-modal'); navigateTo('packages')" class="px-5 py-2.5 rounded-full bg-terracotta text-white text-xs font-semibold whitespace-nowrap">
+              Lihat Paket Wisata
+            </button>
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('article-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // -------------------- TOOLS: CHECKLIST, PAYMENT INFO, FAQ & CONTACT --------------------
+    function renderToolsView() {
+      const main = document.getElementById('app-main');
+      const items = getChecklistItems();
+      const completedCount = items.filter(i => i.checked).length;
+      const percent = items.length ? Math.round((completedCount / items.length) * 100) : 0;
+      const categories = [...new Set(items.map(i => i.category))];
+
+      main.innerHTML = `
+        <div class="spa-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+          <!-- 1. INTERACTIVE TRAVEL CHECKLIST -->
+          <section id="checklist-section" class="bg-sand-card border border-sand-border rounded-3xl p-6 sm:p-10 shadow-mediterranean">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-sand-border">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-1.5">Asisten Persiapan Perjalanan</span>
+                <h1 class="font-serif font-bold text-2xl sm:text-4xl text-aegean">Travel Checklist Interaktif</h1>
+                <p class="text-sm text-aegean/75 mt-1">Centang perlengkapan yang sudah siap. Progres tersimpan otomatis di browser perangkat Anda.</p>
+              </div>
+
+              <!-- Progress Gauge -->
+              <div class="bg-sand-warm border border-sand-border rounded-2xl p-4 min-w-[240px]">
+                <div class="flex items-center justify-between text-xs font-bold text-aegean mb-2">
+                  <span>Kesiapan Keberangkatan</span>
+                  <span class="text-terracotta">${completedCount}/${items.length} (${percent}%)</span>
+                </div>
+                <div class="w-full h-2.5 rounded-full bg-sand-border overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-terracotta to-sage transition-all duration-300" style="width: ${percent}%"></div>
+                </div>
+                <button onclick="resetChecklist()" class="mt-2.5 text-[11px] font-semibold text-aegean/70 hover:text-terracotta underline">
+                  Reset ke Daftar Awal
+                </button>
+              </div>
+            </div>
+
+            <!-- Add Custom Item Form -->
+            <form onsubmit="addCustomChecklistItem(event)" class="mt-6 flex flex-col sm:flex-row gap-3">
+              <select id="custom-chk-cat" class="px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-xs sm:text-sm font-medium text-aegean focus:outline-none focus:border-terracotta">
+                <option value="Dokumen & Identitas">Dokumen & Identitas</option>
+                <option value="Pakaian & Alas Kaki">Pakaian & Alas Kaki</option>
+                <option value="Perlengkapan Pribadi & Kesehatan">Perlengkapan Pribadi & Kesehatan</option>
+                <option value="Jadwal & Barang Bawaan">Jadwal & Barang Bawaan</option>
+              </select>
+              <input id="custom-chk-input" type="text" placeholder="Tambahkan item persiapan pribadi Anda (misal: Kamera underwater)..." class="flex-1 px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" required />
+              <button type="submit" class="px-6 py-3 rounded-2xl bg-aegean hover:bg-aegean-dark text-white text-sm font-semibold flex items-center justify-center gap-2 transition-colors">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Tambah Item</span>
+              </button>
+            </form>
+
+            <!-- Checklist Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              ${categories.map(cat => `
+                <div class="bg-sand/75 border border-sand-border rounded-2xl p-5">
+                  <h3 class="font-serif font-bold text-lg text-aegean mb-3.5 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-terracotta"></span>
+                    <span>${cat}</span>
+                  </h3>
+                  <div class="space-y-2.5">
+                    ${items.filter(i => i.category === cat).map(item => `
+                      <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-sand-warm cursor-pointer transition-colors">
+                        <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleChecklistItem('${item.id}')" class="mt-0.5 w-4 h-4 rounded accent-[#E07A5F] cursor-pointer" />
+                        <span class="text-xs sm:text-sm leading-snug ${item.checked ? 'line-through text-aegean/45' : 'text-aegean/90'}">${item.text}</span>
+                      </label>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+
+          <!-- 2. PAYMENT INFORMATION (HONEST & TRANSPARENT - NO FAKE BANK NUMBERS) -->
+          <section id="payment-info-section" class="bg-sand-card border border-sand-border rounded-3xl p-6 sm:p-10 shadow-mediterranean">
+            <div class="max-w-3xl mb-8">
+              <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-1.5">Transparansi Transaksi</span>
+              <h2 class="font-serif font-bold text-2xl sm:text-3xl text-aegean mb-2">Informasi & Ketentuan Pembayaran</h2>
+              <p class="text-sm text-aegean/80">
+                Keamanan transaksi Anda adalah prioritas kami. Berikut adalah alur dan ketentuan pembayaran resmi DAFTERNOON Tour & Travel.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+              <div class="p-5 rounded-2xl bg-sand-warm border border-sand-border">
+                <div class="w-10 h-10 rounded-xl bg-aegean text-white flex items-center justify-center mb-3">
+                  <i data-lucide="landmark" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-serif font-bold text-base text-aegean mb-1.5">Metode Pembayaran</h3>
+                <p class="text-xs text-aegean/80 leading-relaxed">Transfer Bank Nasional atau QRIS resmi yang tertera pada lembar invoice setelah konfirmasi ketersediaan jadwal.</p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-sand-warm border border-sand-border">
+                <div class="w-10 h-10 rounded-xl bg-terracotta text-white flex items-center justify-center mb-3">
+                  <i data-lucide="percent" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-serif font-bold text-base text-aegean mb-1.5">Ketentuan Uang Muka (DP)</h3>
+                <p class="text-xs text-aegean/80 leading-relaxed">Pembayaran DP sebesar <strong>30% – 40%</strong> dari total biaya perjalanan untuk mengunci kuota kapal, akomodasi, dan transportasi.</p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-sand-warm border border-sand-border">
+                <div class="w-10 h-10 rounded-xl bg-sage-dark text-white flex items-center justify-center mb-3">
+                  <i data-lucide="hourglass" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-serif font-bold text-base text-aegean mb-1.5">Batas Waktu Pembayaran</h3>
+                <p class="text-xs text-aegean/80 leading-relaxed">Batas waktu transfer DP maksimal <strong>1x24 jam</strong> sejak invoice konfirmasi diterbitkan oleh admin resmi DAFTERNOON.</p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-sand-warm border border-sand-border">
+                <div class="w-10 h-10 rounded-xl bg-sunburst-dark text-aegean flex items-center justify-center mb-3">
+                  <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-serif font-bold text-base text-aegean mb-1.5">Ketentuan Pelunasan</h3>
+                <p class="text-xs text-aegean/80 leading-relaxed">Pelunasan sisa pembayaran dilakukan selambat-lambatnya <strong>H-7 sebelum tanggal keberangkatan</strong>.</p>
+              </div>
+            </div>
+
+            <!-- Honest Notice Regarding Bank Account Details -->
+            <div class="p-5 rounded-2xl bg-aegean-soft border border-aegean/20 flex items-start gap-3.5">
+              <i data-lucide="shield-alert" class="w-6 h-6 text-aegean flex-shrink-0 mt-0.5"></i>
+              <div class="text-xs sm:text-sm text-aegean/90 leading-relaxed">
+                <strong class="block text-aegean mb-1">Informasi Nomor Rekening Pembayaran Resmi:</strong>
+                Demi menjaga keamanan dan mencegah penyalahgunaan informasi rekening di halaman publik, nomor rekening resmi DAFTERNOON <strong>tidak ditampilkan secara terbuka di website ini</strong>. Detail rekening pembayaran resmi hanya dikirimkan langsung oleh admin DAFTERNOON melalui WhatsApp resmi (<strong>0895-2715-7912</strong>) setelah ketersediaan paket Anda diverifikasi.
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. FAQ ACCORDION SECTION -->
+          <section id="faq-section" class="bg-sand-card border border-sand-border rounded-3xl p-6 sm:p-10 shadow-mediterranean">
+            <div class="max-w-3xl mb-8">
+              <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-1.5">Pusat Bantuan</span>
+              <h2 class="font-serif font-bold text-2xl sm:text-3xl text-aegean mb-2">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+              <p class="text-sm text-aegean/80">Klik pada setiap pertanyaan di bawah ini untuk melihat penjelasan lengkapnya.</p>
+            </div>
+
+            <div class="space-y-3">
+              ${FAQ_DATA.map((faq, idx) => `
+                <details class="group bg-sand-warm/80 border border-sand-border rounded-2xl overflow-hidden" ${idx === 0 ? 'open' : ''}>
+                  <summary class="list-none cursor-pointer px-5 py-4 flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-aegean hover:text-terracotta transition-colors">
+                    <span>${faq.q}</span>
+                    <span class="w-8 h-8 rounded-full bg-sand-card border border-sand-border flex items-center justify-center flex-shrink-0 group-open:bg-terracotta group-open:text-white transition-colors">
+                      <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+                    </span>
+                  </summary>
+                  <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-aegean/85 leading-relaxed border-t border-sand-border/60">
+                    ${faq.a}
+                  </div>
+                </details>
+              `).join('')}
+            </div>
+          </section>
+
+          <!-- 4. CONTACT & CUSTOMER SERVICE (HONEST & DIRECT WHATSAPP INTEGRATION) -->
+          <section id="contact-section" class="bg-sand-card border border-sand-border rounded-3xl p-6 sm:p-10 shadow-mediterranean">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div class="lg:col-span-5 space-y-5">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-1.5">Konsultasi Perjalanan</span>
+                  <h2 class="font-serif font-bold text-2xl sm:text-3xl text-aegean mb-2">Hubungi Customer Service</h2>
+                  <p class="text-sm text-aegean/80 leading-relaxed">
+                    Punya pertanyaan seputar penyesuaian jadwal, rombongan keluarga, atau ketersediaan tanggal? Tim DAFTERNOON siap membantu Anda.
+                  </p>
+                </div>
+
+                <div class="space-y-3.5">
+                  <div class="p-4 rounded-2xl bg-sand-warm border border-sand-border flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-2xl bg-terracotta text-white flex items-center justify-center flex-shrink-0">
+                      <i data-lucide="phone" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs text-aegean/70 block">WhatsApp Resmi DAFTERNOON</span>
+                      <a href="https://wa.me/6289527157912" target="_blank" rel="noopener noreferrer" class="font-bold text-base text-aegean hover:text-terracotta">0895-2715-7912</a>
+                    </div>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-sand-warm border border-sand-border flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-2xl bg-aegean text-white flex items-center justify-center flex-shrink-0">
+                      <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs text-aegean/70 block">Jam Operasional Layanan</span>
+                      <span class="font-bold text-sm text-aegean">Senin – Minggu, 08.00 – 21.00 WIB</span>
+                    </div>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-sand-warm/60 border border-sand-border text-xs text-aegean/75 leading-relaxed">
+                    <strong>Catatan Informasi Kontak:</strong> Saat ini kanal komunikasi dan pemesanan resmi DAFTERNOON terpusat melalui nomor WhatsApp di atas agar seluruh riwayat konsultasi Anda terdokumentasi dengan cepat dan akurat.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Real Direct-to-WhatsApp Contact Form (No Fake Server Submission) -->
+              <div class="lg:col-span-7 bg-sand-warm/70 border border-sand-border rounded-3xl p-6">
+                <h3 class="font-serif font-bold text-xl text-aegean mb-1">Kirim Pesan Langsung ke WhatsApp Admin</h3>
+                <p class="text-xs text-aegean/75 mb-5">Pesan yang Anda tulis akan diformat otomatis dan langsung dibuka pada aplikasi WhatsApp resmi DAFTERNOON (0895-2715-7912).</p>
+
+                <form onsubmit="sendContactToWhatsApp(event)" class="space-y-4">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-bold text-aegean mb-1.5">Nama Lengkap *</label>
+                      <input id="contact-name" type="text" required placeholder="Contoh: Raka Pratama" class="w-full px-4 py-3 rounded-2xl bg-sand-card border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-aegean mb-1.5">Topik Pertanyaan *</label>
+                      <select id="contact-topic" class="w-full px-4 py-3 rounded-2xl bg-sand-card border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta">
+                        <option value="Konsultasi Paket Wisata">Konsultasi Paket Wisata</option>
+                        <option value="Permintaan Private Trip / Grup">Permintaan Private Trip / Grup</option>
+                        <option value="Cek Ketersediaan Tanggal">Cek Ketersediaan Tanggal</option>
+                        <option value="Informasi Pembayaran / Reschedule">Informasi Pembayaran / Reschedule</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-aegean mb-1.5">Isi Pesan Anda *</label>
+                    <textarea id="contact-message" rows="4" required placeholder="Tuliskan rencana destinasi, perkiraan bulan keberangkatan, atau pertanyaan Anda..." class="w-full px-4 py-3 rounded-2xl bg-sand-card border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta"></textarea>
+                  </div>
+
+                  <button type="submit" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-sm font-semibold shadow-terracotta inline-flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Lanjutkan Kirim via WhatsApp</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function toggleChecklistItem(id) {
+      const items = getChecklistItems();
+      const target = items.find(i => i.id === id);
+      if (target) {
+        target.checked = !target.checked;
+        saveChecklistItems(items);
+        renderToolsView();
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function addCustomChecklistItem(e) {
+      e.preventDefault();
+      const catEl = document.getElementById('custom-chk-cat');
+      const inputEl = document.getElementById('custom-chk-input');
+      const val = inputEl.value.trim();
+      if (!val) return;
+
+      const items = getChecklistItems();
+      items.push({
+        id: 'chk-' + Date.now(),
+        category: catEl.value,
+        text: val,
+        checked: false
+      });
+      saveChecklistItems(items);
+      showToast('Item persiapan berhasil ditambahkan ke checklist!', 'success');
+      renderToolsView();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function resetChecklist() {
+      saveChecklistItems(JSON.parse(JSON.stringify(DEFAULT_CHECKLIST)));
+      showToast('Checklist dikembalikan ke pengaturan awal.', 'info');
+      renderToolsView();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function sendContactToWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value.trim();
+      const topic = document.getElementById('contact-topic').value;
+      const msg = document.getElementById('contact-message').value.trim();
+
+      if (!name || !msg) {
+        showToast('Mohon lengkapi nama dan isi pesan terlebih dahulu.', 'error');
+        return;
+      }
+
+      const formatted = `Halo Admin DAFTERNOON,\n\nSaya ingin menghubungi Customer Service dengan detail berikut:\n• Nama: ${name}\n• Topik: ${topic}\n• Pesan: ${msg}\n\nTerima kasih.`;
+      const waUrl = `https://wa.me/${WHATSAPP_ADMIN}?text=${encodeURIComponent(formatted)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      showToast('Membuka WhatsApp resmi DAFTERNOON untuk mengirim pesan Anda...', 'success');
+    }
+
+    // -------------------- CUSTOMER DASHBOARD VIEW (LOCAL SESSION MODE) --------------------
+    function renderDashboardView() {
+      const main = document.getElementById('app-main');
+      const reservations = getLocalReservations();
+      const latestCustomer = reservations.length > 0 ? reservations[0].customer : null;
+
+      main.innerHTML = `
+        <div class="spa-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">Portal Pemesan</span>
+              <h1 class="font-serif font-bold text-3xl sm:text-4xl text-aegean">Customer Dashboard</h1>
+            </div>
+            <div class="flex items-center gap-3">
+              ${reservations.length > 0 ? `
+                <button onclick="clearLocalReservations()" class="px-4 py-2.5 rounded-full border border-sand-border bg-sand-card text-xs font-semibold text-aegean/75 hover:text-terracotta transition-colors">
+                  Hapus Riwayat Browser
+                </button>
+              ` : ''}
+              <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-full bg-terracotta text-white text-xs sm:text-sm font-semibold shadow-terracotta flex items-center gap-2">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Buat Permintaan Reservasi</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Transparent Notice: Local Client Storage Mode (No Permanent Backend Claim) -->
+          <div class="mb-8 p-4 sm:p-5 rounded-2xl bg-sunburst-soft border border-sunburst flex items-start gap-3.5">
+            <i data-lucide="info" class="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5"></i>
+            <div class="text-xs sm:text-sm text-aegean/90 leading-relaxed">
+              <strong class="text-aegean">Mode Pratinjau Sesi Lokal:</strong> Sistem saat ini belum terhubung ke database server permanen. Data profil dan permintaan reservasi yang tampil di halaman ini tersimpan sementara pada penyimpanan lokal browser perangkat Anda. Pastikan Anda melakukan konfirmasi melalui <strong>WhatsApp resmi DAFTERNOON (0895-2715-7912)</strong> agar admin dapat memproses jadwal Anda secara resmi.
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+            <!-- Customer Profile Card -->
+            <div class="lg:col-span-4 bg-sand-card border border-sand-border rounded-3xl p-6 shadow-mediterranean">
+              <div class="flex items-center gap-4 pb-5 border-b border-sand-border">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean to-terracotta text-white font-serif font-bold text-xl flex items-center justify-center">
+                  ${latestCustomer ? latestCustomer.fullName.charAt(0).toUpperCase() : 'D'}
+                </div>
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-terracotta block">Profil Pemesan Sesi</span>
+                  <h2 class="font-serif font-bold text-lg text-aegean">${latestCustomer ? latestCustomer.fullName : 'Tamu DAFTERNOON'}</h2>
+                </div>
+              </div>
+
+              <div class="pt-5 space-y-3 text-xs sm:text-sm">
+                <div class="flex justify-between gap-2">
+                  <span class="text-aegean/65">No. WhatsApp</span>
+                  <span class="font-semibold text-aegean">${latestCustomer ? latestCustomer.whatsapp : 'Belum diisi'}</span>
+                </div>
+                <div class="flex justify-between gap-2">
+                  <span class="text-aegean/65">Email</span>
+                  <span class="font-semibold text-aegean truncate max-w-[180px]">${latestCustomer && latestCustomer.email ? latestCustomer.email : '-'}</span>
+                </div>
+                <div class="flex justify-between gap-2">
+                  <span class="text-aegean/65">Permintaan Sesi Ini</span>
+                  <span class="font-bold text-terracotta">${reservations.length} Reservasi</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reservation History List -->
+            <div class="lg:col-span-8 space-y-5">
+              ${reservations.length === 0 ? `
+                <div class="bg-sand-card border border-sand-border rounded-3xl p-10 text-center shadow-mediterranean">
+                  <div class="w-14 h-14 rounded-2xl bg-sand-warm text-terracotta flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="compass" class="w-7 h-7"></i>
+                  </div>
+                  <h3 class="font-serif font-bold text-xl text-aegean mb-2">Belum Ada Permintaan Reservasi di Sesi Ini</h3>
+                  <p class="text-sm text-aegean/75 max-w-md mx-auto mb-6">
+                    Mulai pilih destinasi wisata nusantara Anda, hitung estimasi biaya perjalanan, dan kirimkan permintaan reservasi ke WhatsApp admin DAFTERNOON.
+                  </p>
+                  <button onclick="openBookingModal()" class="px-6 py-3 rounded-full bg-terracotta text-white text-sm font-semibold shadow-terracotta">
+                    Mulai Buat Reservasi
+                  </button>
+                </div>
+              ` : reservations.map(res => {
+                const pkg = DESTINATIONS_DATA.find(d => d.id === res.destinationId);
+                return `
+                  <div class="bg-sand-card border border-sand-border rounded-3xl p-6 shadow-mediterranean space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-sand-border">
+                      <div>
+                        <span class="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-aegean text-white">${res.code}</span>
+                        <span class="text-xs text-aegean/65 ml-2">Dibuat: ${res.createdAt}</span>
+                      </div>
+                      <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-sunburst-soft text-terracotta border border-sunburst">
+                          Status: Permintaan Reservasi (Menunggu Konfirmasi Admin)
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <span class="text-xs text-aegean/65 block">Paket Perjalanan</span>
+                        <h3 class="font-serif font-bold text-lg text-aegean">${res.packageName}</h3>
+                        <p class="text-xs text-aegean/80 mt-1">Keberangkatan: <strong>${res.departureDate}</strong> • Peserta: <strong>${res.adults} Dewasa${res.children > 0 ? `, ${res.children} Anak` : ''}</strong></p>
+                      </div>
+                      <div class="sm:text-right">
+                        <span class="text-xs text-aegean/65 block">Estimasi Total Biaya</span>
+                        <span class="font-serif font-bold text-xl text-aegean block">${formatRupiah(res.totalAmount)}</span>
+                        <span class="text-xs text-sage-dark font-semibold">Status Pembayaran: Menunggu Verifikasi & Invoice Admin</span>
+                      </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-sand-border/70 flex flex-wrap items-center justify-between gap-3">
+                      ${pkg ? `
+                        <button onclick="openItineraryModal('${pkg.id}')" class="px-4 py-2 rounded-full bg-sand-warm hover:bg-aegean hover:text-white text-aegean text-xs font-semibold border border-sand-border transition-colors">
+                          Lihat Jadwal Perjalanan
+                        </button>
+                      ` : '<span></span>'}
+                      <a href="${res.whatsappUrl}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-xs font-semibold inline-flex items-center gap-2 shadow-sm">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span>Kirim Ulang Konfirmasi ke WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 7. MULTI-STEP BOOKING & AUTOMATIC PRICE CALCULATOR MODAL
+    // =========================================================================
+    function openBookingModal(preselectedDestId) {
+      if (preselectedDestId) {
+        bookingState.destinationId = preselectedDestId;
+      }
+      bookingState.step = 1;
+      bookingState.generatedCode = '';
+
+      // Default departure date: +14 days from today if empty
+      if (!bookingState.departureDate) {
+        const d = new Date();
+        d.setDate(d.getDate() + 14);
+        bookingState.departureDate = d.toISOString().split('T')[0];
+      }
+
+      renderBookingModalContent();
+      const modal = document.getElementById('booking-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function calculateBookingPricing() {
+      const pkg = DESTINATIONS_DATA.find(d => d.id === bookingState.destinationId) || DESTINATIONS_DATA[0];
+      const adults = Math.max(1, parseInt(bookingState.adults, 10) || 1);
+      const children = Math.max(0, parseInt(bookingState.children, 10) || 0);
+
+      // Child tariff = 75% of adult price
+      const childUnitPrice = Math.round(pkg.pricePerPax * 0.75);
+      const subtotal = (adults * pkg.pricePerPax) + (children * childUnitPrice);
+
+      let discount = 0;
+      let promoNote = '';
+      if (bookingState.appliedPromo) {
+        const p = bookingState.appliedPromo;
+        if (adults >= p.minPax) {
+          if (p.discountType === 'fixed') {
+            discount = Math.min(subtotal, p.discountValue);
+          } else if (p.discountType === 'percent') {
+            discount = Math.round(subtotal * (p.discountValue / 100));
+          }
+          promoNote = `Kode ${p.code} (${p.badge})`;
+        } else {
+          promoNote = `Kode ${p.code} membutuhkan min. ${p.minPax} peserta dewasa`;
+        }
+      }
+
+      const total = Math.max(0, subtotal - discount);
+      const dpAmount = Math.round(total * (pkg.dpPercent / 100));
+      const remainingAmount = total - dpAmount;
+
+      return {
+        pkg,
+        adults,
+        children,
+        childUnitPrice,
+        subtotal,
+        discount,
+        promoNote,
+        total,
+        dpPercent: pkg.dpPercent,
+        dpAmount,
+        remainingAmount
+      };
+    }
+
+    function renderBookingModalContent() {
+      const body = document.getElementById('booking-modal-body');
+      const ind1 = document.getElementById('step-ind-1');
+      const ind2 = document.getElementById('step-ind-2');
+
+      if (bookingState.step === 1) {
+        ind1.className = 'flex items-center gap-2 text-terracotta';
+        ind2.className = 'flex items-center gap-2 text-aegean/50';
+      } else {
+        ind1.className = 'flex items-center gap-2 text-sage-dark';
+        ind2.className = 'flex items-center gap-2 text-terracotta';
+      }
+
+      const calc = calculateBookingPricing();
+      const todayMin = new Date().toISOString().split('T')[0];
+
+      if (bookingState.step === 1) {
+        body.innerHTML = `
+          <form onsubmit="proceedToBookingReview(event)" class="space-y-5">
+            <!-- Destination & Package Selection -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-aegean mb-1.5">Pilihan Destinasi & Paket Wisata *</label>
+                <select id="bk-dest" onchange="updateBookingField('destinationId', this.value)" class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm font-medium text-aegean focus:outline-none focus:border-terracotta">
+                  ${DESTINATIONS_DATA.map(d => `
+                    <option value="${d.id}" ${d.id === bookingState.destinationId ? 'selected' : ''}>
+                      ${d.region} — ${d.name} (${d.duration})
+                    </option>
+                  `).join('')}
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-aegean mb-1.5">Rencana Tanggal Keberangkatan *</label>
+                <input id="bk-date" type="date" min="${todayMin}" value="${bookingState.departureDate}" onchange="updateBookingField('departureDate', this.value)" required class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" />
+              </div>
+            </div>
+
+            <!-- Participants & Promo Code -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-aegean mb-1.5">Peserta Dewasa *</label>
+                <input type="number" min="1" max="30" value="${bookingState.adults}" oninput="updateBookingField('adults', this.value)" required class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm font-semibold text-aegean focus:outline-none focus:border-terracotta" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-aegean mb-1.5">Anak (3–10 Thn)</label>
+                <input type="number" min="0" max="20" value="${bookingState.children}" oninput="updateBookingField('children', this.value)" class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm font-semibold text-aegean focus:outline-none focus:border-terracotta" />
+              </div>
+              <div class="col-span-2">
+                <label class="block text-xs font-bold text-aegean mb-1.5">Kode Voucher Promo (Opsional)</label>
+                <div class="flex gap-2">
+                  <input id="bk-promo-input" type="text" value="${bookingState.promoCode}" oninput="bookingState.promoCode = this.value.toUpperCase()" placeholder="Misal: SUMMERID" class="flex-1 px-3.5 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm font-mono uppercase text-aegean focus:outline-none focus:border-terracotta" />
+                  <button type="button" onclick="applyBookingPromoCode()" class="px-4 py-3 rounded-2xl bg-aegean text-white text-xs font-semibold hover:bg-aegean-dark transition-colors">
+                    Terapkan
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Real-time Transparent Price Breakdown Box -->
+            <div class="bg-sand-warm/90 border border-sand-border rounded-2xl p-4 space-y-2 text-xs sm:text-sm">
+              <div class="flex items-center justify-between text-aegean/80">
+                <span>${calc.adults} Peserta Dewasa × ${formatRupiah(calc.pkg.pricePerPax)}</span>
+                <span class="font-semibold">${formatRupiah(calc.adults * calc.pkg.pricePerPax)}</span>
+              </div>
+              ${calc.children > 0 ? `
+                <div class="flex items-center justify-between text-aegean/80">
+                  <span>${calc.children} Peserta Anak (75%) × ${formatRupiah(calc.childUnitPrice)}</span>
+                  <span class="font-semibold">${formatRupiah(calc.children * calc.childUnitPrice)}</span>
+                </div>
+              ` : ''}
+              ${calc.promoNote ? `
+                <div class="flex items-center justify-between ${calc.discount > 0 ? 'text-sage-dark font-semibold' : 'text-terracotta'}">
+                  <span>Promo (${calc.promoNote})</span>
+                  <span>${calc.discount > 0 ? '- ' + formatRupiah(calc.discount) : 'Syarat belum terpenuhi'}</span>
+                </div>
+              ` : ''}
+              <div class="pt-2 border-t border-sand-border flex items-center justify-between">
+                <span class="font-bold text-aegean">Estimasi Total Investasi Perjalanan</span>
+                <span class="font-serif font-bold text-xl text-terracotta">${formatRupiah(calc.total)}</span>
+              </div>
+              <div class="flex flex-wrap justify-between gap-2 text-[11px] text-aegean/70 pt-1">
+                <span>Estimasi DP (${calc.dpPercent}%): <strong>${formatRupiah(calc.dpAmount)}</strong></span>
+                <span>Estimasi Pelunasan (H-7): <strong>${formatRupiah(calc.remainingAmount)}</strong></span>
+              </div>
+            </div>
+
+            <!-- Customer Contact Details -->
+            <div class="pt-2 border-t border-sand-border space-y-3.5">
+              <h4 class="font-serif font-bold text-base text-aegean">Data Pemesan Utama</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-aegean mb-1">Nama Lengkap Sesuai Identitas *</label>
+                  <input type="text" required value="${bookingState.fullName}" oninput="bookingState.fullName = this.value" placeholder="Nama lengkap pemesan" class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-aegean mb-1">Nomor WhatsApp Aktif *</label>
+                  <input type="tel" required value="${bookingState.whatsapp}" oninput="bookingState.whatsapp = this.value" placeholder="Contoh: 081234567890" class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" />
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-aegean mb-1">Email (Opsional)</label>
+                  <input type="email" value="${bookingState.email}" oninput="bookingState.email = this.value" placeholder="nama@email.com" class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-aegean mb-1">Catatan Khusus (Opsional)</label>
+                  <input type="text" value="${bookingState.notes}" oninput="bookingState.notes = this.value" placeholder="Alergi makanan, permintaan kamar, dll." class="w-full px-4 py-3 rounded-2xl bg-sand-warm border border-sand-border text-sm text-aegean focus:outline-none focus:border-terracotta" />
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-3">
+              <button type="button" onclick="closeModal('booking-modal')" class="px-5 py-3 rounded-full border border-sand-border text-xs sm:text-sm font-semibold text-aegean">Batal</button>
+              <button type="submit" class="px-7 py-3 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-xs sm:text-sm font-semibold shadow-terracotta flex items-center gap-2">
+                <span>Periksa Ulang Pesanan</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </form>
+        `;
+      } else {
+        // STEP 2: ORDER REVIEW & UNIQUE RESERVATION REQUEST CODE
+        const waMessage = buildWhatsAppReservationMessage(calc, bookingState.generatedCode);
+        const waLink = `https://wa.me/${WHATSAPP_ADMIN}?text=${encodeURIComponent(waMessage)}`;
+
+        body.innerHTML = `
+          <div class="space-y-5">
+            <!-- Honest Reservation Request Status Banner -->
+            <div class="p-4 rounded-2xl bg-sunburst-soft border border-sunburst flex items-start gap-3">
+              <i data-lucide="clock" class="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5"></i>
+              <div class="text-xs sm:text-sm text-aegean">
+                <strong class="block">Status: Permintaan Reservasi Dibuat (Menunggu Konfirmasi Admin)</strong>
+                <span>Pemesanan belum terkonfirmasi secara otomatis. Silakan tekan tombol <strong>Konfirmasi via WhatsApp</strong> di bawah agar admin resmi DAFTERNOON memeriksa ketersediaan jadwal dan mengirimkan invoice resmi.</span>
+              </div>
+            </div>
+
+            <!-- Unique Reservation Code Card -->
+            <div class="p-5 rounded-2xl bg-aegean text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-sunburst block">Kode Permintaan Reservasi Anda</span>
+                <span class="font-mono font-bold text-2xl tracking-wider">${bookingState.generatedCode}</span>
+              </div>
+              <button onclick="copyTextToClipboard('${bookingState.generatedCode}', 'Kode Reservasi')" class="px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold inline-flex items-center gap-2 self-start sm:self-center">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Salin Kode</span>
+              </button>
+            </div>
+
+            <!-- Review Summary Details -->
+            <div class="bg-sand-warm border border-sand-border rounded-2xl p-5 space-y-3 text-xs sm:text-sm">
+              <h4 class="font-serif font-bold text-base text-aegean border-b border-sand-border pb-2">Ringkasan Pemeriksaan Pesanan</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <span class="text-aegean/65 block">Destinasi & Paket</span>
+                  <strong class="text-aegean">${calc.pkg.name} (${calc.pkg.duration})</strong>
+                </div>
+                <div>
+                  <span class="text-aegean/65 block">Tanggal Keberangkatan</span>
+                  <strong class="text-aegean">${bookingState.departureDate}</strong>
+                </div>
+                <div>
+                  <span class="text-aegean/65 block">Jumlah Peserta</span>
+                  <strong class="text-aegean">${calc.adults} Dewasa${calc.children > 0 ? `, ${calc.children} Anak` : ''}</strong>
+                </div>
+                <div>
+                  <span class="text-aegean/65 block">Pemesan</span>
+                  <strong class="text-aegean">${bookingState.fullName} (${bookingState.whatsapp})</strong>
+                </div>
+              </div>
+              ${bookingState.notes ? `
+                <div class="pt-2 border-t border-sand-border/70">
+                  <span class="text-aegean/65 block">Catatan Khusus</span>
+                  <span class="text-aegean">${bookingState.notes}</span>
+                </div>
+              ` : ''}
+              <div class="pt-3 border-t border-sand-border flex items-center justify-between">
+                <span class="font-bold text-aegean">Total Estimasi Biaya</span>
+                <span class="font-serif font-bold text-xl text-terracotta">${formatRupiah(calc.total)}</span>
+              </div>
+              <div class="flex justify-between text-xs text-aegean/75">
+                <span>Estimasi DP (${calc.dpPercent}%): ${formatRupiah(calc.dpAmount)}</span>
+                <span>Pelunasan (H-7): ${formatRupiah(calc.remainingAmount)}</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+              <button onclick="bookingState.step = 1; renderBookingModalContent(); if(window.lucide) lucide.createIcons();" class="px-5 py-3 rounded-full border border-sand-border text-xs sm:text-sm font-semibold text-aegean hover:bg-sand-warm">
+                ← Ubah Data Pesanan
+              </button>
+              <a href="${waLink}" target="_blank" rel="noopener noreferrer" onclick="showToast('Mengarahkan ke WhatsApp resmi DAFTERNOON...', 'success')" class="px-7 py-3.5 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-xs sm:text-sm font-semibold shadow-terracotta flex items-center justify-center gap-2.5 transition-all">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                <span>Konfirmasi via WhatsApp (${WHATSAPP_DISPLAY})</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function updateBookingField(field, value) {
+      bookingState[field] = value;
+      renderBookingModalContent();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function applyBookingPromoCode() {
+      const code = (bookingState.promoCode || '').trim().toUpperCase();
+      if (!code) {
+        bookingState.appliedPromo = null;
+        renderBookingModalContent();
+        if (window.lucide) lucide.createIcons();
+        return;
+      }
+      const found = PROMOS_DATA.find(p => p.code === code);
+      if (found) {
+        bookingState.appliedPromo = found;
+        showToast(`Kode promo ${found.code} (${found.badge}) diterapkan!`, 'success');
+      } else {
+        bookingState.appliedPromo = null;
+        showToast('Kode voucher tidak ditemukan. Cek halaman Promo untuk kode aktif.', 'error');
+      }
+      renderBookingModalContent();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function proceedToBookingReview(e) {
+      e.preventDefault();
+      const name = bookingState.fullName.trim();
+      const phone = bookingState.whatsapp.replace(/[^0-9+]/g, '');
+
+      if (!bookingState.departureDate) {
+        showToast('Silakan pilih rencana tanggal keberangkatan.', 'error');
+        return;
+      }
+      if (name.length < 2) {
+        showToast('Mohon masukkan nama lengkap pemesan dengan benar.', 'error');
+        return;
+      }
+      if (phone.length < 9) {
+        showToast('Mohon masukkan nomor WhatsApp aktif minimal 9 digit.', 'error');
+        return;
+      }
+
+      // Generate Unique Request Code
+      const randomPart = Math.floor(1000 + Math.random() * 9000);
+      const code = `DAF-2026-${randomPart}`;
+      bookingState.generatedCode = code;
+      bookingState.step = 2;
+
+      const calc = calculateBookingPricing();
+      const waMessage = buildWhatsAppReservationMessage(calc, code);
+      const waUrl = `https://wa.me/${WHATSAPP_ADMIN}?text=${encodeURIComponent(waMessage)}`;
+
+      // Save to Local Session Storage so Customer Dashboard displays it transparently
+      saveLocalReservation({
+        code,
+        destinationId: calc.pkg.id,
+        packageName: calc.pkg.name,
+        departureDate: bookingState.departureDate,
+        adults: calc.adults,
+        children: calc.children,
+        totalAmount: calc.total,
+        dpAmount: calc.dpAmount,
+        customer: {
+          fullName: name,
+          whatsapp: phone,
+          email: bookingState.email.trim(),
+          notes: bookingState.notes.trim()
+        },
+        whatsappUrl: waUrl,
+        createdAt: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+      });
+
+      renderBookingModalContent();
+      if (window.lucide) lucide.createIcons();
+      showToast(`Permintaan reservasi ${code} siap dikonfirmasi via WhatsApp!`, 'success');
+    }
+
+    function buildWhatsAppReservationMessage(calc, code) {
+      return [
+        `Halo Admin DAFTERNOON, saya ingin mengajukan *Permintaan Reservasi Perjalanan*:`,
+        ``,
+        `• *Kode Reservasi:* ${code}`,
+        `• *Paket Wisata:* ${calc.pkg.name} (${calc.pkg.duration})`,
+        `• *Tanggal Keberangkatan:* ${bookingState.departureDate}`,
+        `• *Jumlah Peserta:* ${calc.adults} Dewasa${calc.children > 0 ? `, ${calc.children} Anak` : ''}`,
+        `• *Nama Pemesan:* ${bookingState.fullName}`,
+        `• *No. WhatsApp:* ${bookingState.whatsapp}`,
+        calc.discount > 0 ? `• *Voucher Promo:* ${calc.promoNote} (-${formatRupiah(calc.discount)})` : null,
+        `• *Estimasi Total Biaya:* ${formatRupiah(calc.total)}`,
+        `• *Estimasi DP (${calc.dpPercent}%):* ${formatRupiah(calc.dpAmount)}`,
+        bookingState.notes ? `• *Catatan:* ${bookingState.notes}` : null,
+        ``,
+        `Mohon informasi ketersediaan jadwal serta instruksi pembayaran resminya. Terima kasih.`
+      ].filter(Boolean).join('\n');
+    }
+
+    // =========================================================================
+    // 8. LEGAL MODALS (PRIVACY POLICY & TERMS & CONDITIONS)
+    // =========================================================================
+    function openLegalModal(type) {
+      const titleEl = document.getElementById('legal-modal-title');
+      const bodyEl = document.getElementById('legal-modal-body');
+
+      if (type === 'privacy') {
+        titleEl.textContent = 'Privacy Policy — DAFTERNOON Tour & Travel';
+        bodyEl.innerHTML = `
+          <p><strong>1. Pengumpulan Data Pribadi</strong><br/>DAFTERNOON mengumpulkan informasi dasar yang Anda masukkan secara sukarela pada formulir permintaan reservasi atau konsultasi, meliputi nama lengkap, nomor WhatsApp, alamat email (opsional), serta preferensi perjalanan.</p>
+          <p><strong>2. Penggunaan Informasi</strong><br/>Data Anda digunakan semata-mata untuk memproses pengecekan ketersediaan paket wisata, penyusunan jadwal perjalanan (itinerary), koordinasi operasional lapangan (kapal, akomodasi, transportasi lokal), serta komunikasi melalui WhatsApp resmi DAFTERNOON (0895-2715-7912).</p>
+          <p><strong>3. Penyimpanan Lokal & Keamanan</strong><br/>Pada antarmuka web ini, riwayat permintaan reservasi dan daftar checklist disimpan secara lokal di browser perangkat Anda untuk kenyamanan navigasi. DAFTERNOON tidak memperjualbelikan data pribadi pelanggan kepada pihak ketiga di luar kebutuhan operasional perjalanan yang Anda setujui.</p>
+        `;
+      } else {
+        titleEl.textContent = 'Terms & Conditions — Syarat & Ketentuan Layanan';
+        bodyEl.innerHTML = `
+          <p><strong>1. Status Permintaan Reservasi</strong><br/>Pengisian formulir reservasi di website menghasilkan Kode Permintaan Reservasi. Jadwal perjalanan dinyatakan terikat setelah admin resmi DAFTERNOON mengonfirmasi ketersediaan kuota dan uang muka (DP) diterima sesuai invoice resmi.</p>
+          <p><strong>2. Ketentuan Pembayaran & Pelunasan</strong><br/>Uang muka (DP) sebesar 30%–40% dibayarkan maksimal 1x24 jam setelah konfirmasi ketersediaan. Pelunasan wajib diselesaikan selambat-lambatnya H-7 sebelum tanggal keberangkatan.</p>
+          <p><strong>3. Perubahan Jadwal & Keadaan Kahar (Force Majeure)</strong><br/>Perubahan tanggal keberangkatan dapat diajukan maksimal H-14 sesuai ketersediaan mitra lokal. Apabila terjadi penundaan akibat cuaca ekstrem, gelombang laut, atau kebijakan otoritas pelabuhan/bandara, jadwal akan disesuaikan demi keselamatan seluruh peserta.</p>
+        `;
+      }
+
+      const modal = document.getElementById('legal-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Close modals when clicking backdrop
+    ['itinerary-modal', 'booking-modal', 'article-modal', 'legal-modal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', (e) => {
+          if (e.target === el) closeModal(id);
+        });
+      }
+    });
+
+    // =========================================================================
+    // 9. INITIALIZE APPLICATION ON WINDOW LOAD
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      updateDashboardBadges();
+      navigateTo('home');
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
